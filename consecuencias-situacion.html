@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Situacion-Consecuencias</title>
+
+  <!-- Fuente Poppins -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@700&display=swap" rel="stylesheet" />
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html, body {
+      height: 100%;
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(135deg, #0f0f0f, #1c1c1c);
+      color: #f8f8f2;
+    }
+
+    body {
+      display: flex;
+      flex-direction: column;
+      height: 100vh;
+      margin: 0;
+    }
+
+    header {
+ position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center; /* centro el texto */
+  padding: 20px;
+  background: linear-gradient(90deg, #5a4de8, #8366f1);
+  color: #f0e9ff;
+  font-size: clamp(1.8rem, 4vw, 3rem);
+  font-weight: 700;
+  font-family: 'Poppins', sans-serif;
+  box-shadow: 0 6px 18px rgba(83, 75, 180, 0.6);
+  letter-spacing: 1.5px;
+  text-shadow: 1px 1px 4px rgba(0,0,0,0.35);
+  user-select: none;
+}
+
+.header-title {
+  flex: 1;
+  text-align: center;
+  user-select: none;
+}
+
+.back-button {
+  position: absolute;
+  left: 20px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  color: #f0e9ff;
+  font-size: 2rem;
+  font-weight: bold;
+  cursor: pointer;
+  user-select: none;
+  padding: 0;
+  margin: 0;
+  line-height: 1;
+  text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.4);
+  outline: none;
+  box-shadow: none;
+}
+
+.back-button:hover {
+  color: #f0e9ff; /* mismo color, sin cambio */
+}
+.back-button:focus,
+.back-button:active {
+  outline: none;
+  box-shadow: none;
+}
+
+.back-button:hover,
+header:hover .back-button {
+  color: #f0e9ff; /* mismo color, sin cambio */
+  background: none;
+}
+
+
+header:hover {
+      background: linear-gradient(90deg, #8366f1, #5a4de8);
+      cursor: default;
+    }
+
+
+    .carousel {
+      flex: 1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      perspective: 1200px;
+      width: 100%;
+      padding: 0 60px;
+      box-sizing: border-box;
+      position: relative;
+    }
+
+    .cards {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      overflow: hidden;
+    }
+
+    .card {
+      position: absolute;
+      width: 340px;
+      height: 320px;
+      background: linear-gradient(135deg, #7b3fe4, #4f46e5);
+      color: #e0d7ff;
+      border-radius: 20px;
+      padding: 20px;
+      box-shadow: 0 0 8px rgba(127, 90, 255, 0.4);
+      transition: transform 0.5s ease, opacity 0.5s ease, box-shadow 0.3s ease;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      text-align: center;
+      user-select: none;
+      backdrop-filter: blur(8px);
+      text-shadow: 0 0 4px rgba(0, 0, 0, 0.4);
+    }
+
+    .card h2 {
+      font-weight: 700;
+      margin-bottom: 10px;
+      color: #d6c4a0;
+    }
+
+    .card p {
+      color: #f8f8f2;
+      font-weight: 500;
+    }
+
+    .card.center {
+      transform: translateX(0) translateZ(150px) rotateY(0deg) scale(1.2);
+      opacity: 1;
+      z-index: 3;
+      background: linear-gradient(135deg, #a78bfa, #6366f1);
+      box-shadow: 0 0 18px #a78bfa;
+      color: #ffffff;
+    }
+
+    .card.center:hover {
+      box-shadow: 0 0 25px #bfaaff;
+    }
+
+    .card.left {
+      transform: translateX(-360px) translateZ(70px) rotateY(25deg) scale(0.9);
+      opacity: 0.5;
+      z-index: 2;
+      background: linear-gradient(135deg, #5a3e8f, #3a2b7a);
+      box-shadow: 0 0 6px rgba(90, 62, 143, 0.25);
+      color: #c2b1ea;
+    }
+
+    .card.right {
+      transform: translateX(360px) translateZ(70px) rotateY(-25deg) scale(0.9);
+      opacity: 0.5;
+      z-index: 2;
+      background: linear-gradient(135deg, #5a3e8f, #3a2b7a);
+      box-shadow: 0 0 6px rgba(90, 62, 143, 0.25);
+      color: #c2b1ea;
+    }
+
+    .card.hidden {
+      opacity: 0;
+      pointer-events: none;
+      transform: translateX(0) translateZ(0) scale(0.7);
+      z-index: 1;
+    }
+
+    .card img.full {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 20px;
+      box-shadow: inset 0 0 12px rgba(63, 54, 103, 0.4);
+      transition: transform 0.3s ease;
+    }
+
+    .card.center:hover img.full {
+      transform: scale(1.05);
+      box-shadow: inset 0 0 20px rgba(167, 139, 250, 0.6);
+    }
+
+    button {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background: linear-gradient(90deg, #5a4de8, #8366f1);
+      border: none;
+      color: white;
+      font-size: 2em;
+      width: 45px;
+      height: 70px;
+      cursor: pointer;
+      border-radius: 8px;
+      user-select: none;
+      z-index: 10;
+      box-shadow: 0 0 8px rgba(127, 90, 255, 0.4);
+      transition: background 0.3s ease;
+    }
+
+    button.btn-left {
+      left: 20px;
+    }
+
+    button.btn-right {
+      right: 20px;
+    }
+
+    button:hover {
+      background: linear-gradient(90deg, #8366f1, #5a4de8);
+    }
+
+    button:active {
+      background: #4b3cc0;
+    }
+
+    @media (max-width: 700px) {
+      header {
+        font-size: 1.8em;
+        padding: 15px;
+      }
+
+      @media (max-width: 700px) {
+  button {
+    font-size: 2.2em;
+    height: 60px;
+    width: 50px;
+  }
+}
+      @media (max-width: 700px) {
+  .btn-left,
+  .btn-right {
+    display: none;
+  }
+}
+
+      .carousel {
+        height: auto;
+        padding: 0 20px;
+      }
+
+      .card {
+        width: 80vw;
+        max-width: 340px;
+        margin: 0 auto;
+      }
+
+      .card.left {
+        transform: translateX(-90vw) translateZ(30px) rotateY(25deg) scale(0.8);
+      }
+
+      .card.right {
+        transform: translateX(90vw) translateZ(30px) rotateY(-25deg) scale(0.8);
+      }
+
+      button.btn-left {
+        left: 10px;
+      }
+
+      button.btn-right {
+        right: 10px;
+      }
+    }
+
+  </style>
+</head>
+<body>
+
+
+<header>
+  <button class="back-button" onclick="history.back()" aria-label="Regresar">⟵</button>
+  <div class="header-title">Situación económica tras la guerra</div>
+</header>
+
+<div class="carousel">
+  <button class="btn btn-left" aria-label="Anterior">&lt;</button>
+  <div class="cards" id="cards">
+    <div class="card"><img class="full" src="imagenes/situacion.jpg" /></div>
+
+    <div class="card"><h2>Destrucción y pérdidas materiales</h2>
+  <p>La guerra de independencia dejó una economía debilitada, con infraestructuras destruidas, agricultura y minería paralizadas, y una pérdida significativa en la producción y el comercio.</p><audio src="audios/economia-a1.mp3"></audio></div>
+
+<div class="card"><h2>Caída de la producción minera</h2>
+  <p>Las regiones mineras, que habían sido el motor económico durante la colonia, sufrieron un gran retroceso por la inestabilidad, afectando gravemente las finanzas públicas y privadas.</p><audio src="audios/economia-a2.mp3"></audio></div>
+
+<div class="card"><h2>Problemas fiscales</h2>
+  <p>El nuevo estado enfrentó una crisis financiera por la falta de ingresos, el colapso de la recaudación tributaria y la deuda heredada del virreinato, lo que dificultó la gobernabilidad y la inversión.</p><audio src="audios/economia-a3.mp3"></audio></div>
+
+<div class="card"><h2>Comercio interrumpido</h2>
+  <p>Las rutas comerciales se vieron afectadas y muchas zonas quedaron aisladas, lo que limitó la circulación de bienes, encareció productos y afectó tanto a productores como a consumidores.</p><audio src="audios/economia-a4.mp3"></audio></div>
+
+<div class="card"><h2>Inflación y escasez</h2>
+  <p>La falta de estabilidad provocó inflación, escasez de alimentos y materias primas, y una economía mayormente basada en la agricultura de subsistencia, dificultando la recuperación rápida.</p><audio src="audios/economia-a5.mp3"></audio></div>
+
+<div class="card"><h2>Intentos de recuperación</h2>
+  <p>El gobierno implementó políticas para reactivar la economía, incentivando la agricultura, la minería y el comercio, pero enfrentó numerosos obstáculos debido a la fragilidad institucional.</p><audio src="audios/economia-a6.mp3"></audio></div>
+
+<div class="card"><h2>Rol de la inversión extranjera</h2>
+  <p>Se comenzaron a buscar inversiones extranjeras para modernizar sectores clave, pero las tensiones políticas y sociales limitaron el interés y el capital disponible.</p><audio src="audios/economia-a7.mp3"></audio></div>
+
+<div class="card"><h2>Desigualdad económica</h2>
+  <p>La crisis económica agravó las desigualdades sociales, manteniendo en pobreza a grandes sectores de la población, especialmente indígenas y campesinos, mientras una élite conservaba el control económico.</p><audio src="audios/economia-a8.mp3"></audio></div>
+
+<div class="card"><h2>Legado económico</h2>
+  <p>La situación económica tras la independencia marcó el inicio de un largo proceso de reconstrucción y desarrollo que definiría la estructura económica y social de México en el siglo XIX.</p><audio src="audios/economia-a9.mp3"></audio></div>
+  
+  </div>
+  <button class="btn btn-right" aria-label="Siguiente">&gt;</button>
+</div>
+
+<script>
+  const cards = [...document.querySelectorAll('.card')];
+  const btnLeft = document.querySelector('.btn-left');
+  const btnRight = document.querySelector('.btn-right');
+  let current = 0;
+  let currentAudio = null;
+
+  function updatePositions() {
+    const total = cards.length;
+    cards.forEach((card, i) => {
+      card.classList.remove('left', 'center', 'right', 'hidden');
+      let pos = (i - current + total) % total;
+      if (pos === 0) {
+        card.classList.add('center');
+      } else if (pos === 1) {
+        card.classList.add('right');
+      } else if (pos === total - 1) {
+        card.classList.add('left');
+      } else {
+        card.classList.add('hidden');
+      }
+    });
+  }
+
+  function playAudioForCenterCard() {
+    if (currentAudio) {
+      currentAudio.pause();
+      currentAudio.currentTime = 0;
+    }
+
+    const centerCard = document.querySelector('.card.center');
+    const audio = centerCard.querySelector('audio');
+    if (audio) {
+      currentAudio = audio;
+      audio.play().catch(e => console.log("Reproducción bloqueada hasta que el usuario interactúe"));
+    }
+  }
+
+  function updatePositionsWithAudio() {
+    updatePositions();
+    playAudioForCenterCard();
+  }
+
+  btnLeft.addEventListener('click', () => {
+    current = (current - 1 + cards.length) % cards.length;
+    updatePositionsWithAudio();
+  });
+
+  btnRight.addEventListener('click', () => {
+    current = (current + 1) % cards.length;
+    updatePositionsWithAudio();
+  });
+
+  updatePositionsWithAudio(); // inicializa la primera tarjeta con audio
+
+  let startX = 0;
+let endX = 0;
+
+const carousel = document.querySelector('.carousel');
+
+carousel.addEventListener('touchstart', (e) => {
+  startX = e.touches[0].clientX;
+}, false);
+
+carousel.addEventListener('touchend', (e) => {
+  endX = e.changedTouches[0].clientX;
+  handleGesture();
+}, false);
+
+function handleGesture() {
+  const diffX = endX - startX;
+
+  if (Math.abs(diffX) > 50) { // umbral mínimo para que cuente como deslizamiento
+    if (diffX > 0) {
+      // swipe hacia la derecha (anterior)
+      current = (current - 1 + cards.length) % cards.length;
+    } else {
+      // swipe hacia la izquierda (siguiente)
+      current = (current + 1) % cards.length;
+    }
+    updatePositionsWithAudio();
+  }
+}
+</script>
+
+</body>
+</html>
