@@ -79,11 +79,11 @@
       transform-style: preserve-3d;
       user-select: none;
       z-index: 1;
-      cursor: pointer; /* Indicar que la tarjeta es interactiva */
+      cursor: pointer;
     }
 
     .card:not(.center) {
-      cursor: default; /* Evitar cursor pointer en tarjetas no centrales */
+      cursor: default;
     }
 
     .card-inner {
@@ -95,7 +95,7 @@
     }
 
     .card.center:hover .card-inner {
-      transform: rotateY(180deg); /* Solo la tarjeta central se voltea al pasar el cursor */
+      transform: rotateY(180deg);
     }
 
     .card-front, .card-back {
@@ -114,11 +114,11 @@
       font-size: 1.15rem;
       background: linear-gradient(135deg, #7b3fe4, #4f46e5);
       color: #e0d7ff;
-      filter: grayscale(100%); /* Todas las tarjetas en gris por defecto */
+      filter: grayscale(100%);
     }
 
     .card-front > *, .card-back > * {
-      pointer-events: none; /* Evitar que elementos hijos capturen eventos */
+      pointer-events: none;
     }
 
     .card-front img {
@@ -138,7 +138,7 @@
     .card.card-1 .card-front, .card.card-1 .card-back {
       background: linear-gradient(135deg, #a78bfa, #6366f1);
       color: #ffffff;
-      filter: none; /* Sin gris para la tarjeta 1 */
+      filter: none;
     }
 
     .card h2 {
@@ -260,206 +260,242 @@
         right: 10px;
       }
       .card.center:hover .card-inner {
-        transform: none; /* Deshabilitar volteo en móviles */
+        transform: none;
       }
       .card-front img {
-        height: 150px; /* Ajustar tamaño de imagen en móviles */
+        height: 150px;
       }
     }
   </style>
 </head>
 <body>
+  <header>
+    <div class="header-title">HistoClick</div>
+  </header>
 
-<header>
-  <div class="header-title">HistoClick</div>
-</header>
-
-<div class="carousel">
-  <button class="btn btn-left" aria-label="Anterior"><</button>
-  <div class="cards" id="cards">
-    <div class="card card-1 center" data-url="independencia.html">
-      <div class="card-inner">
-        <div class="card-front">
-          <h2>Independencia de México</h2>
-          <img src="imagenes/independencia.jpg"/>
-          <audio src="audios/independencia.mp3" class="audio-front"></audio>
+  <div class="carousel">
+    <button class="btn btn-left" aria-label="Anterior"><</button>
+    <div class="cards" id="cards">
+      <div class="card card-1 center" data-url="independencia.html">
+        <div class="card-inner">
+          <div class="card-front">
+            <h2>Independencia de México</h2>
+            <img src="imagenes/independencia.jpg"/>
+            <audio src="audios/independencia.mp3" class="audio-front"></audio>
+          </div>
+          <div class="card-back">
+            <p>La Independencia de México (1810-1821) comenzó con el Grito de Dolores de Miguel Hidalgo y terminó con la entrada del Ejército Trigarante en 1821, logrando la libertad del dominio español.</p>
+            <audio src="audios/independenciar1.mp3" class="audio-back" muted></audio>
+          </div>
         </div>
-        <div class="card-back">
-          <p>La Independencia de México (1810-1821) comenzó con el Grito de Dolores de Miguel Hidalgo y terminó con la entrada del Ejército Trigarante en 1821, logrando la libertad del dominio español.</p>
-          <audio src="audios/independenciar1.mp3" class="audio-back"></audio>
+      </div>
+      <div class="card right" data-url="">
+        <div class="card-inner">
+          <div class="card-front">
+            <h2>Revolución Mexicana</h2>
+            <img src="imagenes/revolucion.jpg"/>
+            <audio src="audios/tema2.mp3" class="audio-front" muted></audio>
+          </div>
+          <div class="card-back">
+            <p>La Revolución Mexicana (1910-1920) fue un conflicto armado que buscó terminar con la dictadura de Porfirio Díaz, lograr la justicia social, la reforma agraria y la democracia.</p>
+            <audio src="audios/tema2.mp3" class="audio-back" muted></audio>
+          </div>
+        </div>
+      </div>
+      <div class="card right" data-url="">
+        <div class="card-inner">
+          <div class="card-front">
+            <h2>Ivestigando...</h2>
+            <img src="imagenes/candado.jpg"/>
+            <audio src="audios/tema2.mp3" class="audio-front" muted></audio>
+          </div>
+          <div class="card-back">
+            <p>Contenido en desarrollo, ¡pronto estará disponible!</p>
+            <audio src="audios/tema2.mp3" class="audio-back" muted></audio>
+          </div>
         </div>
       </div>
     </div>
-    <div class="card right" data-url="">
-        <div class="card-front">
-          <h2>Revolución Mexicana</h2>
-          <img src="imagenes/revolucion.jpg"/>
-          <audio src="audios/tema2.mp3" class="audio-front"></audio>
-        </div>
-    </div>
-    <div class="card right" data-url="">
-        <div class="card-front">
-          <h2>Ivestigando...</h2>
-          <img src="imagenes/candado.jpg"/>
-          <audio src="audios/tema2.mp3" class="audio-front"></audio>
-        </div>
-    </div>
+    <button class="btn btn-right" aria-label="Siguiente">></button>
   </div>
-  <button class="btn btn-right" aria-label="Siguiente">></button>
-</div>
 
-<script>
-  const cards = [...document.querySelectorAll('.card')];
-  const btnLeft = document.querySelector('.btn-left');
-  const btnRight = document.querySelector('.btn-right');
-  let current = 0;
-  let currentAudio = null;
-  let isFlipped = false;
+  <script>
+    const cards = [...document.querySelectorAll('.card')];
+    const btnLeft = document.querySelector('.btn-left');
+    const btnRight = document.querySelector('.btn-right');
+    let current = 0;
+    let currentAudio = null;
+    let isFlipped = false;
+    let userInteracted = false;
 
-  function pauseAllAudios() {
-    cards.forEach(card => {
-      const audioFront = card.querySelector('.audio-front');
-      const audioBack = card.querySelector('.audio-back');
-      if (audioFront) {
-        audioFront.pause();
-        audioFront.currentTime = 0;
-      }
-      if (audioBack) {
-        audioBack.pause();
-        audioBack.currentTime = 0;
-      }
-    });
-    currentAudio = null;
-  }
+    function pauseAllAudios() {
+      cards.forEach(card => {
+        const audioFront = card.querySelector('.audio-front');
+        const audioBack = card.querySelector('.audio-back');
+        if (audioFront) {
+          audioFront.pause();
+          audioFront.currentTime = 0;
+        }
+        if (audioBack) {
+          audioBack.pause();
+          audioBack.currentTime = 0;
+        }
+      });
+      currentAudio = null;
+    }
 
-  function playAudioForCenterCard() {
-    pauseAllAudios();
-    const centerCard = document.querySelector('.card.center');
-    if (centerCard && !isFlipped) {
-      const audioFront = centerCard.querySelector('.audio-front');
-      if (audioFront) {
-        currentAudio = audioFront;
-        audioFront.play().catch(() => {
-          console.log("Reproducción del audio frontal bloqueada hasta que el usuario interactúe");
-        });
+    function playAudioForCenterCard() {
+      pauseAllAudios();
+      const centerCard = document.querySelector('.card.center');
+      if (centerCard) {
+        const audio = isFlipped ? centerCard.querySelector('.audio-back') : centerCard.querySelector('.audio-front');
+        if (audio) {
+          currentAudio = audio;
+          if (userInteracted) {
+            audio.muted = false; // Activar sonido después de interacción
+          }
+          audio.play().catch(() => {
+            console.log("Reproducción del audio bloqueada hasta que el usuario interactúe");
+          });
+        }
       }
     }
-  }
 
-  function handleCardFlipAndClick() {
-    // Limpiar eventos anteriores para evitar duplicados
-    cards.forEach(card => {
-      card.removeEventListener('mouseover', handleMouseOver);
-      card.removeEventListener('mouseout', handleMouseOut);
-      card.removeEventListener('click', handleClick);
-    });
+    function handleCardFlipAndClick() {
+      cards.forEach(card => {
+        card.removeEventListener('mouseover', handleMouseOver);
+        card.removeEventListener('mouseout', handleMouseOut);
+        card.removeEventListener('click', handleClick);
+      });
 
-    const centerCard = document.querySelector('.card.center');
-    if (centerCard) {
-      function handleMouseOver() {
-        if (!centerCard.classList.contains('center')) return; // Evitar que tarjetas no centrales respondan
-        isFlipped = true;
-        pauseAllAudios();
-        const audioBack = centerCard.querySelector('.audio-back');
-        if (audioBack) {
-          currentAudio = audioBack;
-          audioBack.play().catch(() => {
-            console.log("Reproducción del audio trasero bloqueada hasta que el usuario interactúe");
-          });
-        }
-      }
+      const centerCard = document.querySelector('.card.center');
+      if (centerCard) {
+        let isPlaying = false;
 
-      function handleMouseOut() {
-        if (!centerCard.classList.contains('center')) return; // Evitar que tarjetas no centrales respondan
-        isFlipped = false;
-        pauseAllAudios();
-        const audioFront = centerCard.querySelector('.audio-front');
-        if (audioFront) {
-          currentAudio = audioFront;
-          audioFront.play().catch(() => {
-            console.log("Reproducción del audio frontal bloqueada hasta que el usuario interactúe");
-          });
-        }
-      }
-
-      function handleClick(e) {
-        if (!centerCard.classList.contains('center')) return; // Evitar clics en tarjetas no centrales
-        if (isFlipped) { // Redirigir solo en la cara trasera
-          const url = centerCard.getAttribute('data-url');
-          if (url) {
-            console.log(`Intentando redirigir a: ${url}`); // Depuración
-            window.location.href = url;
-          } else {
-            console.log("URL no definida para esta tarjeta");
+        function handleMouseOver() {
+          if (!centerCard.classList.contains('center')) return;
+          if (!isFlipped && !isPlaying) {
+            isFlipped = true;
+            pauseAllAudios();
+            const audioBack = centerCard.querySelector('.audio-back');
+            if (audioBack) {
+              currentAudio = audioBack;
+              isPlaying = true;
+              if (userInteracted) {
+                audioBack.muted = false;
+              }
+              audioBack.play().catch(() => {
+                console.log("Reproducción del audio trasero bloqueada hasta que el usuario interactúe");
+              });
+              audioBack.onended = () => {
+                isPlaying = false;
+              };
+            }
           }
         }
-      }
 
-      centerCard.addEventListener('mouseover', handleMouseOver);
-      centerCard.addEventListener('mouseout', handleMouseOut);
-      centerCard.addEventListener('click', handleClick);
-    }
-  }
+        function handleMouseOut() {
+          if (!centerCard.classList.contains('center')) return;
+          if (isFlipped && !isPlaying) {
+            isFlipped = false;
+            pauseAllAudios();
+            const audioFront = centerCard.querySelector('.audio-front');
+            if (audioFront) {
+              currentAudio = audioFront;
+              isPlaying = true;
+              if (userInteracted) {
+                audioFront.muted = false;
+              }
+              audioFront.play().catch(() => {
+                console.log("Reproducción del audio frontal bloqueada hasta que el usuario interactúe");
+              });
+              audioFront.onended = () => {
+                isPlaying = false;
+              };
+            }
+          }
+        }
 
-  function updatePositions() {
-    const total = cards.length;
-    cards.forEach((card, i) => {
-      card.classList.remove('left', 'center', 'right', 'hidden');
-      let pos = (i - current + total) % total;
-      if (pos === 0) card.classList.add('center');
-      else if (pos === 1) card.classList.add('right');
-      else if (pos === total - 1) card.classList.add('left');
-      else card.classList.add('hidden');
-    });
-    pauseAllAudios(); // Asegurar que solo la central pueda reproducir audio
-    handleCardFlipAndClick(); // Reasignar eventos a la nueva tarjeta central
-  }
+        function handleClick(e) {
+          if (!centerCard.classList.contains('center')) return;
+          if (isFlipped) {
+            const url = centerCard.getAttribute('data-url');
+            if (url) {
+              console.log(`Intentando redirigir a: ${url}`);
+              window.location.href = url;
+            } else {
+              console.log("URL no definida para esta tarjeta");
+            }
+          }
+        }
 
-  function updatePositionsWithAudio() {
-    updatePositions();
-    playAudioForCenterCard();
-  }
-
-  btnLeft.addEventListener('click', () => {
-    current = (current - 1 + cards.length) % cards.length;
-    updatePositionsWithAudio();
-  });
-
-  btnRight.addEventListener('click', () => {
-    current = (current + 1) % cards.length;
-    updatePositionsWithAudio();
-  });
-
-  updatePositionsWithAudio();
-
-  let startX = 0;
-  let endX = 0;
-  const carousel = document.querySelector('.carousel');
-
-  carousel.addEventListener('touchstart', e => {
-    startX = e.touches[0].clientX;
-  }, false);
-
-  carousel.addEventListener('touchend', e => {
-    endX = e.changedTouches[0].clientX;
-    const diffX = endX - startX;
-    const centerCard = document.querySelector('.card.center');
-    if (centerCard.contains(e.target) && Math.abs(diffX) < 10 && isFlipped) { // Redirigir en cara trasera
-      const url = centerCard.getAttribute('data-url');
-      if (url) {
-        console.log(`Intentando redirigir a: ${url}`); // Depuración
-        window.location.href = url;
-      } else {
-        console.log("URL no definida para esta tarjeta");
+        centerCard.addEventListener('mouseover', handleMouseOver);
+        centerCard.addEventListener('mouseout', handleMouseOut);
+        centerCard.addEventListener('click', handleClick);
       }
     }
-    if (Math.abs(diffX) > 50) {
-      if (diffX > 0) current = (current - 1 + cards.length) % cards.length;
-      else current = (current + 1) % cards.length;
+
+    function updatePositions() {
+      const total = cards.length;
+      cards.forEach((card, i) => {
+        card.classList.remove('left', 'center', 'right', 'hidden');
+        let pos = (i - current + total) % total;
+        if (pos === 0) card.classList.add('center');
+        else if (pos === 1) card.classList.add('right');
+        else if (pos === total - 1) card.classList.add('left');
+        else card.classList.add('hidden');
+      });
+      pauseAllAudios();
+      handleCardFlipAndClick();
+    }
+
+    function updatePositionsWithAudio() {
+      updatePositions();
+      playAudioForCenterCard();
+    }
+
+    btnLeft.addEventListener('click', () => {
+      userInteracted = true;
+      current = (current - 1 + cards.length) % cards.length;
       updatePositionsWithAudio();
-    }
-  }, false);
-</script>
+    });
 
+    btnRight.addEventListener('click', () => {
+      userInteracted = true;
+      current = (current + 1) % cards.length;
+      updatePositionsWithAudio();
+    });
+
+    updatePositionsWithAudio();
+
+    let startX = 0;
+    let endX = 0;
+    const carousel = document.querySelector('.carousel');
+
+    carousel.addEventListener('touchstart', e => {
+      startX = e.touches[0].clientX;
+    }, false);
+
+    carousel.addEventListener('touchend', e => {
+      userInteracted = true;
+      endX = e.changedTouches[0].clientX;
+      const diffX = endX - startX;
+      const centerCard = document.querySelector('.card.center');
+      if (centerCard.contains(e.target) && Math.abs(diffX) < 10 && isFlipped) {
+        const url = centerCard.getAttribute('data-url');
+        if (url) {
+          console.log(`Intentando redirigir a: ${url}`);
+          window.location.href = url;
+        } else {
+          console.log("URL no definida para esta tarjeta");
+        }
+      }
+      if (Math.abs(diffX) > 50) {
+        if (diffX > 0) current = (current - 1 + cards.length) % cards.length;
+        else current = (current + 1) % cards.length;
+        updatePositionsWithAudio();
+      }
+    }, false);
+  </script>
 </body>
 </html>
