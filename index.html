@@ -283,11 +283,11 @@
           <div class="card-front">
             <h2>Independencia de México</h2>
             <img src="imagenes/independencia.jpg"/>
-            <audio src="audios/independencia.mp3" class="audio-front" muted></audio>
+            <audio src="audios/independencia.mp3" class="audio-front"></audio>
           </div>
           <div class="card-back">
             <p>La Independencia de México (1810-1821) comenzó con el Grito de Dolores de Miguel Hidalgo y terminó con la entrada del Ejército Trigarante en 1821, logrando la libertad del dominio español.</p>
-            <audio src="audios/independenciar1.mp3" class="audio-back" muted></audio>
+            <audio src="audios/independenciar1.mp3" class="audio-back"></audio>
           </div>
         </div>
       </div>
@@ -296,11 +296,11 @@
           <div class="card-front">
             <h2>Revolución Mexicana</h2>
             <img src="imagenes/revolucion.jpg"/>
-            <audio src="audios/tema2.mp3" class="audio-front" muted></audio>
+            <audio src="audios/tema2.mp3" class="audio-front"></audio>
           </div>
           <div class="card-back">
             <p>La Revolución Mexicana (1910-1920) fue un conflicto armado que buscó terminar con la dictadura de Porfirio Díaz, lograr la justicia social, la reforma agraria y la democracia.</p>
-            <audio src="audios/tema2.mp3" class="audio-back" muted></audio>
+            <audio src="audios/tema2.mp3" class="audio-back"></audio>
           </div>
         </div>
       </div>
@@ -309,11 +309,11 @@
           <div class="card-front">
             <h2>Investigando...</h2>
             <img src="imagenes/candado.jpg"/>
-            <audio src="audios/tema2.mp3" class="audio-front" muted></audio>
+            <audio src="audios/tema2.mp3" class="audio-front"></audio>
           </div>
           <div class="card-back">
             <p>Contenido en desarrollo, ¡pronto estará disponible!</p>
-            <audio src="audios/tema2.mp3" class="audio-back" muted></audio>
+            <audio src="audios/tema2.mp3" class="audio-back"></audio>
           </div>
         </div>
       </div>
@@ -328,7 +328,6 @@
     let current = 0;
     let currentAudio = null;
     let isFlipped = false;
-    let userInteracted = false;
 
     function pauseAllAudios() {
       cards.forEach(card => {
@@ -357,9 +356,6 @@
         const audio = isFlipped ? centerCard.querySelector('.audio-back') : centerCard.querySelector('.audio-front');
         if (audio) {
           currentAudio = audio;
-          if (userInteracted) {
-            audio.muted = false;
-          }
           audio.play().catch(() => {
             console.log("Reproducción del audio bloqueada hasta que el usuario interactúe");
           });
@@ -430,7 +426,7 @@
       isFlipped = false;
       pauseAllAudios();
       handleCardFlipAndClick();
-      playAudioForCenterCard(); // Reproducción inmediata
+      playAudioForCenterCard();
     }
 
     function updatePositionsWithAudio() {
@@ -438,18 +434,16 @@
     }
 
     btnLeft.addEventListener('click', () => {
-      userInteracted = true;
       current = (current - 1 + cards.length) % cards.length;
       updatePositionsWithAudio();
     });
 
     btnRight.addEventListener('click', () => {
-      userInteracted = true;
       current = (current + 1) % cards.length;
       updatePositionsWithAudio();
     });
 
-    updatePositionsWithAudio(); // Inicialización inmediata
+    updatePositionsWithAudio();
 
     let startX = 0;
     let endX = 0;
@@ -460,7 +454,6 @@
     }, false);
 
     carousel.addEventListener('touchend', e => {
-      userInteracted = true;
       endX = e.changedTouches[0].clientX;
       const diffX = endX - startX;
       const centerCard = document.querySelector('.card.center');
