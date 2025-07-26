@@ -79,10 +79,12 @@
       transform-style: preserve-3d;
       user-select: none;
       z-index: 1;
+      pointer-events: none;
     }
 
-    .card:not(.center) {
-      cursor: default;
+    .card.center {
+      cursor: pointer;
+      pointer-events: auto;
     }
 
     .card-inner {
@@ -91,7 +93,7 @@
       height: 100%;
       transform-style: preserve-3d;
       transition: transform 0.6s ease;
-      pointer-events: auto; /* Asegurar que solo card-inner capture eventos */
+      pointer-events: auto;
     }
 
     .card.center:hover .card-inner {
@@ -168,7 +170,6 @@
       transform: translateX(0) translateZ(150px) rotateY(0deg) scale(1.25);
       opacity: 1;
       z-index: 3;
-      cursor: pointer;
     }
 
     .card.left {
@@ -306,8 +307,8 @@
       <div class="card right" data-url="">
         <div class="card-inner">
           <div class="card-front">
-            <h2>Ivestigando...</h2>
-            <img src="imagenes/cancado.jpg"/>
+            <h2>Investigando...</h2>
+            <img src="imagenes/candado.jpg"/>
             <audio src="audios/tema2.mp3" class="audio-front" muted></audio>
           </div>
           <div class="card-back">
@@ -346,7 +347,11 @@
     }
 
     function playAudioForCenterCard() {
-      pauseAllAudios();
+      if (currentAudio) {
+        currentAudio.pause();
+        currentAudio.currentTime = 0;
+      }
+
       const centerCard = document.querySelector('.card.center');
       if (centerCard) {
         const audio = isFlipped ? centerCard.querySelector('.audio-back') : centerCard.querySelector('.audio-front');
@@ -425,11 +430,11 @@
       isFlipped = false;
       pauseAllAudios();
       handleCardFlipAndClick();
+      playAudioForCenterCard(); // Reproducción inmediata
     }
 
     function updatePositionsWithAudio() {
       updatePositions();
-      playAudioForCenterCard();
     }
 
     btnLeft.addEventListener('click', () => {
@@ -444,7 +449,7 @@
       updatePositionsWithAudio();
     });
 
-    updatePositionsWithAudio();
+    updatePositionsWithAudio(); // Inicialización inmediata
 
     let startX = 0;
     let endX = 0;
