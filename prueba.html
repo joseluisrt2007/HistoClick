@@ -3,34 +3,57 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Virreinato - Carrusel Horizontal Igual</title>
+  <title>HistoClick</title>
+
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@700&display=swap" rel="stylesheet" />
+
   <style>
     * {
       box-sizing: border-box;
-    }
-    html, body {
       margin: 0;
       padding: 0;
+    }
+
+    html, body {
       height: 100%;
       font-family: 'Poppins', sans-serif;
-      background: radial-gradient(circle at 20% 30%, #1e1e2f, #0f0f1e 70%);
+      background: linear-gradient(135deg, #0f0f0f, #1c1c1c);
       color: #f8f8f2;
+    }
+
+    body {
       display: flex;
       flex-direction: column;
+      height: 100vh;
+      margin: 0;
     }
+
     header {
-      background: linear-gradient(90deg, #5a4de8, #8366f1);
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
       padding: 20px;
-      text-align: center;
+      background: linear-gradient(90deg, #5a4de8, #8366f1);
+      color: #f0e9ff;
+      font-size: clamp(2rem, 4vw, 3.5rem);
       font-weight: 700;
-      font-size: clamp(1.8rem, 4vw, 3rem);
-      box-shadow: 0 6px 18px rgba(83, 75, 180, 0.6);
       letter-spacing: 1.5px;
       text-shadow: 1px 1px 4px rgba(0,0,0,0.35);
       user-select: none;
-      margin: 0; /* Asegurar que no haya margen */
     }
+
+    .header-title {
+      flex: 1;
+      text-align: center;
+      user-select: none;
+    }
+
+    header:hover {
+      background: linear-gradient(90deg, #8366f1, #5a4de8);
+      cursor: default;
+    }
+
     .carousel {
       flex: 1;
       display: flex;
@@ -41,10 +64,8 @@
       padding: 0 60px;
       box-sizing: border-box;
       position: relative;
-      max-width: 1000px;
-      margin: 40px auto;
-      height: 360px;
     }
+
     .cards {
       position: relative;
       width: 100%;
@@ -54,66 +75,127 @@
       align-items: center;
       overflow: hidden;
     }
+
     .card {
       position: absolute;
       width: 340px;
       height: 320px;
-      background: linear-gradient(135deg, #7b3fe4, #4f46e5);
-      color: #e0d7ff;
+      transition: transform 0.5s ease, opacity 0.5s ease, filter 0.5s ease;
+      transform-style: preserve-3d;
+      user-select: none;
+      z-index: 1;
+      pointer-events: none;
+    }
+
+    .card.center {
+      cursor: pointer;
+      pointer-events: auto;
+    }
+
+    .card-inner {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      transform-style: preserve-3d;
+      transition: transform 0.6s ease;
+      pointer-events: auto;
+    }
+
+    .card.center:hover .card-inner {
+      transform: rotateY(180deg);
+    }
+
+    .card-front, .card-back {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      backface-visibility: hidden;
       border-radius: 20px;
-      padding: 20px;
-      box-shadow: 0 0 8px rgba(127, 90, 255, 0.4);
-      transition: transform 0.5s ease, opacity 0.5s ease, box-shadow 0.3s ease;
+      padding: 25px;
       display: flex;
       flex-direction: column;
       justify-content: center;
-      text-align: center;
-      user-select: none;
+      align-items: center;
       backdrop-filter: blur(8px);
       text-shadow: 0 0 4px rgba(0, 0, 0, 0.4);
+      font-size: 1.15rem;
+      background: linear-gradient(135deg, #7b3fe4, #4f46e5);
+      color: #e0d7ff;
+      filter: grayscale(100%);
     }
+
+    .card-front > *, .card-back > * {
+      pointer-events: none;
+    }
+
+    .card-front img {
+      width: 100%;
+      height: 180px;
+      object-fit: cover;
+      border-radius: 10px;
+      margin-top: 15px;
+    }
+
+    .card-back {
+      transform: rotateY(180deg);
+      background: linear-gradient(135deg, #5a3e8f, #3a2b7a);
+      color: #c2b1ea;
+    }
+
+    .card.card-1 .card-front, .card.card-1 .card-back {
+      background: linear-gradient(135deg, #a78bfa, #6366f1);
+      color: #ffffff;
+      filter: none;
+    }
+
     .card h2 {
       font-weight: 700;
-      margin-bottom: 10px;
+      margin-bottom: 15px;
+      color: #d6c4a0;
+      font-size: 1.8rem;
+      text-align: center;
+    }
+
+    .card.card-1 h2 {
       color: #d6c4a0;
     }
+
     .card p {
       color: #f8f8f2;
       font-weight: 500;
+      font-size: 1.2rem;
+      text-align: center;
     }
+
+    .card.card-1 p {
+      color: #f8f8f2;
+    }
+
     .card.center {
-      transform: translateX(0) translateZ(150px) rotateY(0deg) scale(1.2);
+      transform: translateX(0) translateZ(150px) rotateY(0deg) scale(1.25);
       opacity: 1;
       z-index: 3;
-      background: linear-gradient(135deg, #a78bfa, #6366f1);
-      box-shadow: 0 0 18px #a78bfa;
-      color: #ffffff;
     }
-    .card.center:hover {
-      box-shadow: 0 0 25px #bfaaff;
-    }
+
     .card.left {
       transform: translateX(-360px) translateZ(70px) rotateY(25deg) scale(0.9);
       opacity: 0.5;
       z-index: 2;
-      background: linear-gradient(135deg, #5a3e8f, #3a2b7a);
-      box-shadow: 0 0 6px rgba(90, 62, 143, 0.25);
-      color: #c2b1ea;
     }
+
     .card.right {
       transform: translateX(360px) translateZ(70px) rotateY(-25deg) scale(0.9);
       opacity: 0.5;
       z-index: 2;
-      background: linear-gradient(135deg, #5a3e8f, #3a2b7a);
-      box-shadow: 0 0 6px rgba(90, 62, 143, 0.25);
-      color: #c2b1ea;
     }
+
     .card.hidden {
       opacity: 0;
       pointer-events: none;
       transform: translateX(0) translateZ(0) scale(0.7);
       z-index: 1;
     }
+
     button {
       position: absolute;
       top: 50%;
@@ -121,9 +203,9 @@
       background: linear-gradient(90deg, #5a4de8, #8366f1);
       border: none;
       color: white;
-      font-size: 2em;
-      width: 45px;
-      height: 70px;
+      font-size: 2.4em;
+      width: 50px;
+      height: 75px;
       cursor: pointer;
       border-radius: 8px;
       user-select: none;
@@ -131,31 +213,46 @@
       box-shadow: 0 0 8px rgba(127, 90, 255, 0.4);
       transition: background 0.3s ease;
     }
+
     button.btn-left {
       left: 20px;
     }
+
     button.btn-right {
       right: 20px;
     }
+
     button:hover {
       background: linear-gradient(90deg, #8366f1, #5a4de8);
     }
+
     button:active {
       background: #4b3cc0;
     }
+
     @media (max-width: 700px) {
       header {
         font-size: 1.8em;
         padding: 15px;
       }
+      button {
+        font-size: 2.6em;
+        height: 60px;
+        width: 50px;
+      }
+      .btn-left,
+      .btn-right {
+        display: none;
+      }
       .carousel {
-        max-width: 90vw;
-        height: 320px;
+        height: auto;
         padding: 0 20px;
       }
       .card {
-        width: 90vw;
-        height: 260px;
+        width: 80vw;
+        max-width: 340px;
+        margin: 0 auto;
+        font-size: 1.1rem;
       }
       .card.left {
         transform: translateX(-90vw) translateZ(30px) rotateY(25deg) scale(0.8);
@@ -169,128 +266,211 @@
       button.btn-right {
         right: 10px;
       }
+      .card.center:hover .card-inner {
+        transform: none;
+      }
+      .card-front img {
+        height: 150px;
+      }
     }
   </style>
 </head>
 <body>
+  <header>
+    <div class="header-title">HistoClick</div>
+  </header>
 
-<header>El virreinato de la Nueva España</header>
-
-<div class="carousel" role="region" aria-label="Carrusel horizontal de temas">
-  <button class="btn btn-left" aria-label="Anterior">&lt;</button>
-  <div class="cards" id="cards">
-    <div class="card">
-      <h2>Fundación y establecimiento</h2>
-      <p>El Virreinato de la Nueva España fue creado en 1535 tras la conquista de Tenochtitlan, para administrar los vastos territorios coloniales que España poseía en América del Norte y partes de Asia.</p>
-      <audio src="virreinato-a1.mp3"></audio>
+  <div class="carousel">
+    <button class="btn btn-left" aria-label="Anterior"><</button>
+    <div class="cards" id="cards">
+      <div class="card card-1 center" data-url="independencia.html">
+        <div class="card-inner">
+          <div class="card-front">
+            <h2>Independencia de México</h2>
+            <img src="imagenes/independencia.jpg"/>
+            <audio src="audios/independencia.mp3" class="audio-front"></audio>
+          </div>
+          <div class="card-back">
+            <p>La Independencia de México (1810-1821) comenzó con el Grito de Dolores de Miguel Hidalgo y terminó con la entrada del Ejército Trigarante en 1821, logrando la libertad del dominio español.</p>
+            <audio src="audios/independenciar1.mp3" class="audio-back"></audio>
+          </div>
+        </div>
+      </div>
+      <div class="card right" data-url="">
+        <div class="card-inner">
+          <div class="card-front">
+            <h2>Revolución Mexicana</h2>
+            <img src="imagenes/revolucion.jpg"/>
+            <audio src="audios/tema2.mp3" class="audio-front"></audio>
+          </div>
+          <div class="card-back">
+            <p>La Revolución Mexicana (1910-1920) fue un conflicto armado que buscó terminar con la dictadura de Porfirio Díaz, lograr la justicia social, la reforma agraria y la democracia.</p>
+            <audio src="audios/tema2.mp3" class="audio-back"></audio>
+          </div>
+        </div>
+      </div>
+      <div class="card right" data-url="">
+        <div class="card-inner">
+          <div class="card-front">
+            <h2>Investigando...</h2>
+            <img src="imagenes/candado.jpg"/>
+            <audio src="audios/tema2.mp3" class="audio-front"></audio>
+          </div>
+          <div class="card-back">
+            <p>Contenido en desarrollo, ¡pronto estará disponible!</p>
+            <audio src="audios/tema2.mp3" class="audio-back"></audio>
+          </div>
+        </div>
+      </div>
     </div>
-    <div class="card">
-      <h2>Gobierno virreinal</h2>
-      <p>El virrey, representante directo del rey de España, tenía amplios poderes para gobernar, administrar justicia y defender el territorio frente a amenazas internas y externas.</p>
-      <audio src="virreinato-a2.mp3"></audio>
-    </div>
-    <div class="card">
-      <h2>Economía basada en la minería y agricultura</h2>
-      <p>La principal fuente de riqueza fue la minería de plata, especialmente en regiones como Zacatecas y Guanajuato, complementada por la agricultura que abastecía a la población local y exportaba productos.</p>
-      <audio src="virreinato-a3.mp3"></audio>
-    </div>
-    <div class="card">
-      <h2>Sistema de encomiendas y trabajo indígena</h2>
-      <p>Mediante las encomiendas, los españoles recibían el derecho a recibir tributo y trabajo indígena, lo que originó abusos y explotación pero también un complejo sistema social.</p>
-      <audio src="virreinato-a4.mp3"></audio>
-    </div>
-    <div class="card">
-      <h2>Religión y evangelización</h2>
-      <p>Los misioneros, principalmente franciscanos, dominicos y jesuitas, jugaron un papel vital en convertir a los pueblos indígenas al catolicismo, fundando escuelas, hospitales y misiones.</p>
-      <audio src="virreinato-a5.mp3"></audio>
-    </div>
-    <div class="card">
-      <h2>Sociedad jerárquica y mestizaje</h2>
-      <p>La sociedad se dividió en castas, con españoles peninsulares en la cima, criollos (españoles nacidos en América), mestizos y otros grupos, generando una mezcla cultural y racial única.</p>
-      <audio src="virreinato-a6.mp3"></audio>
-    </div>
-    <div class="card">
-      <h2>Importancia de la ciudad de México-Tenochtitlan</h2>
-      <p>Ciudad de México, construida sobre las ruinas de Tenochtitlan, fue la capital política y económica, con importantes edificios como el Palacio Virreinal y la Catedral Metropolitana.</p>
-      <audio src="virreinato-a7.mp3"></audio>
-    </div>
-    <div class="card">
-      <h2>Red de comercio y puertos</h2>
-      <p>La Nueva España fue un punto clave en la ruta comercial entre España, América y Asia, con puertos como Veracruz y Acapulco, que facilitaban la llegada de productos, personas e ideas.</p>
-      <audio src="virreinato-a8.mp3"></audio>
-    </div>
-    <div class="card">
-      <h2>Impacto cultural y científico</h2>
-      <p>Se desarrollaron importantes instituciones educativas y culturales, como la Universidad de México, y se fomentó la ciencia y el arte, dejando un legado valioso en la historia colonial.</p>
-      <audio src="virreinato-a9.mp3"></audio>
-    </div>
+    <button class="btn btn-right" aria-label="Siguiente">></button>
   </div>
-  <button class="btn btn-right" aria-label="Siguiente">&gt;</button>
-</div>
 
-<script>
-  const cards = [...document.querySelectorAll('.card')];
-  const btnLeft = document.querySelector('.btn-left');
-  const btnRight = document.querySelector('.btn-right');
-  let current = 0;
-  let currentAudio = null;
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const cards = [...document.querySelectorAll('.card')];
+      const btnLeft = document.querySelector('.btn-left');
+      const btnRight = document.querySelector('.btn-right');
+      let current = 0;
+      let currentAudio = null;
+      let isFlipped = false;
 
-  function updatePositions() {
-    const total = cards.length;
-    cards.forEach((card, i) => {
-      card.classList.remove('left', 'center', 'right', 'hidden');
-      let pos = (i - current + total) % total;
-      if (pos === 0) card.classList.add('center');
-      else if (pos === 1) card.classList.add('right');
-      else if (pos === total - 1) card.classList.add('left');
-      else card.classList.add('hidden');
-    });
-  }
+      function pauseAllAudios() {
+        cards.forEach(card => {
+          const audioFront = card.querySelector('.audio-front');
+          const audioBack = card.querySelector('.audio-back');
+          if (audioFront) {
+            audioFront.pause();
+            audioFront.currentTime = 0;
+            console.log(`Audio frontal encontrado: ${audioFront.src}`);
+          } else {
+            console.log(`Audio frontal no encontrado en tarjeta ${card.className}`);
+          }
+          if (audioBack) {
+            audioBack.pause();
+            audioBack.currentTime = 0;
+            console.log(`Audio trasero encontrado: ${audioBack.src}`);
+          } else {
+            console.log(`Audio trasero no encontrado en tarjeta ${card.className}`);
+          }
+        });
+        currentAudio = null;
+      }
 
-  function playAudioForCenterCard() {
-    if (currentAudio) {
-      currentAudio.pause();
-      currentAudio.currentTime = 0;
-    }
-    const centerCard = document.querySelector('.card.center');
-    if (!centerCard) return;
-    const audio = centerCard.querySelector('audio');
-    if (audio) {
-      currentAudio = audio;
-      audio.play().catch(e => console.log("Audio bloqueado hasta interacción del usuario"));
-    }
-  }
+      function playAudioForCenterCard() {
+        if (currentAudio) {
+          currentAudio.pause();
+          currentAudio.currentTime = 0;
+        }
 
-  function updatePositionsWithAudio() {
-    updatePositions();
-    playAudioForCenterCard();
-  }
+        const centerCard = document.querySelector('.card.center');
+        if (centerCard) {
+          const audio = isFlipped ? centerCard.querySelector('.audio-back') : centerCard.querySelector('.audio-front');
+          if (audio) {
+            console.log(`Intentando reproducir audio: ${audio.src} (isFlipped: ${isFlipped})`);
+            currentAudio = audio;
+            audio.play().catch(error => {
+              console.log(`Error al reproducir audio: ${error.message}`);
+            });
+          } else {
+            console.log('No se encontró audio en la tarjeta central');
+          }
+        } else {
+          console.log('No se encontró tarjeta central');
+        }
+      }
 
-  btnLeft.addEventListener('click', () => {
-    current = (current - 1 + cards.length) % cards.length;
-    updatePositionsWithAudio();
-  });
+      function handleCardFlipAndClick() {
+        cards.forEach(card => {
+          const cardInner = card.querySelector('.card-inner');
+          if (cardInner) {
+            cardInner.removeEventListener('mouseover', handleMouseOver);
+            cardInner.removeEventListener('mouseout', handleMouseOut);
+            cardInner.removeEventListener('click', handleClick);
+          }
+        });
 
-  btnRight.addEventListener('click', () => {
-    current = (current + 1) % cards.length;
-    updatePositionsWithAudio();
-  });
+        const centerCard = document.querySelector('.card.center');
+        if (centerCard) {
+          const cardInner = centerCard.querySelector('.card-inner');
+          if (cardInner) {
+            function handleMouseOver(e) {
+              if (!centerCard.classList.contains('center')) return;
+              if (!isFlipped && e.target.closest('.card-inner') === cardInner) {
+                isFlipped = true;
+                playAudioForCenterCard();
+              }
+            }
 
-  let autoSlide = setInterval(() => {
-    current = (current + 1) % cards.length;
-    updatePositionsWithAudio();
-  }, 6000);
+            function handleMouseOut(e) {
+              if (!centerCard.classList.contains('center')) return;
+              if (isFlipped && (!e.relatedTarget || !cardInner.contains(e.relatedTarget))) {
+                isFlipped = false;
+                playAudioForCenterCard();
+              }
+            }
 
-  document.querySelector('.carousel').addEventListener('mouseover', () => clearInterval(autoSlide));
-  document.querySelector('.carousel').addEventListener('mouseout', () => {
-    autoSlide = setInterval(() => {
-      current = (current + 1) % cards.length;
+            function handleClick(e) {
+              if (!centerCard.classList.contains('center')) return;
+              if (isFlipped && e.target.closest('.card-inner') === cardInner) {
+                const url = centerCard.getAttribute('data-url');
+                if (url) {
+                  console.log(`Intentando redirigir a: ${url}`);
+                  window.location.href = url;
+                } else {
+                  console.log("URL no definida para esta tarjeta");
+                }
+              }
+            }
+
+            cardInner.addEventListener('mouseover', handleMouseOver);
+            cardInner.addEventListener('mouseout', handleMouseOut);
+            cardInner.addEventListener('click', handleClick);
+          }
+        }
+      }
+
+      function updatePositions() {
+        const total = cards.length;
+        cards.forEach((card, i) => {
+          card.classList.remove('left', 'center', 'right', 'hidden');
+          let pos = (i - current + total) % total;
+          if (pos === 0) card.classList.add('center');
+          else if (pos === 1) card.classList.add('right');
+          else if (pos === total - 1) card.classList.add('left');
+          else card.classList.add('hidden');
+        });
+        isFlipped = false;
+        pauseAllAudios();
+        handleCardFlipAndClick();
+        playAudioForCenterCard();
+      }
+
+      function updatePositionsWithAudio() {
+        updatePositions();
+      }
+
+      btnLeft.addEventListener('click', () => {
+        current = (current - 1 + cards.length) % cards.length;
+        updatePositionsWithAudio();
+      });
+
+      btnRight.addEventListener('click', () => {
+        current = (current + 1) % cards.length;
+        updatePositionsWithAudio();
+      });
+
+      // Intento de reproducción tras cualquier interacción
+      ['click', 'touchstart'].forEach(event => {
+        document.addEventListener(event, () => {
+          if (!currentAudio || currentAudio.paused) {
+            playAudioForCenterCard();
+          }
+        }, { once: true });
+      });
+
       updatePositionsWithAudio();
-    }, 6000);
-  });
-
-  updatePositionsWithAudio();
-</script>
-
+    });
+  </script>
 </body>
 </html>
