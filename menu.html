@@ -2,11 +2,9 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
   <title>Principal</title>
-
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@700&display=swap" rel="stylesheet" />
-
   <style>
     * {
       box-sizing: border-box;
@@ -19,18 +17,18 @@
       font-family: 'Poppins', sans-serif;
       background: linear-gradient(135deg, #0f0f0f, #1c1c1c);
       color: #f8f8f2;
+      overflow-x: hidden;
     }
 
     body {
       display: flex;
       flex-direction: column;
-      height: 100vh;
+      height: 100%;
       margin: 0;
     }
 
     header {
-      position: relative;
-      display: flex;
+      display: linear-gradient(90deg);
       align-items: center;
       justify-content: center;
       padding: 20px;
@@ -61,9 +59,11 @@
       align-items: center;
       perspective: 1200px;
       width: 100%;
-      padding: 0 60px;
+      padding: 0 20px;
       box-sizing: border-box;
       position: relative;
+      touch-action: pan-y;
+      min-height: 400px;
     }
 
     .cards {
@@ -97,12 +97,8 @@
       width: 100%;
       height: 100%;
       transform-style: preserve-3d;
-      transition: transform 0.6s ease;
+      transition: transform 0.3s ease; /* Más rápida para fluidez */
       pointer-events: auto;
-    }
-
-    .card.center:hover .card-inner {
-      transform: rotateY(180deg);
     }
 
     .card-front, .card-back {
@@ -116,7 +112,6 @@
       flex-direction: column;
       justify-content: center;
       align-items: center;
-      backdrop-filter: blur(8px);
       text-shadow: 0 0 4px rgba(0, 0, 0, 0.4);
       font-size: 1.15rem;
       background: linear-gradient(135deg, #7b3fe4, #4f46e5);
@@ -230,47 +225,66 @@
       background: #4b3cc0;
     }
 
-    @media (max-width: 700px) {
+    /* Media Queries para móviles */
+    @media (max-width: 768px) {
       header {
-        font-size: 1.8em;
+        font-size: clamp(1.5rem, 3vw, 2rem);
         padding: 15px;
       }
-      button {
-        font-size: 2.6em;
-        height: 60px;
-        width: 50px;
-      }
-      .btn-left,
-      .btn-right {
-        display: none;
-      }
       .carousel {
+        padding: 0 10px;
         height: auto;
-        padding: 0 20px;
+        min-height: 400px;
+        perspective: none; /* Desactivar perspectiva en móviles */
       }
       .card {
-        width: 80vw;
-        max-width: 340px;
-        margin: 0 auto;
-        font-size: 1.1rem;
+        width: min(85vw, 300px);
+        height: 280px;
+        font-size: 1rem;
+      }
+      .card-front img {
+        height: 140px;
+      }
+      .card h2 {
+        font-size: 1.5rem;
+      }
+      .card p {
+        font-size: 1rem;
+      }
+      .card.center {
+        transform: translateX(0) scale(1.1);
       }
       .card.left {
-        transform: translateX(-90vw) translateZ(30px) rotateY(25deg) scale(0.8);
+        transform: translateX(-100vw) scale(0.9);
       }
       .card.right {
-        transform: translateX(90vw) translateZ(30px) rotateY(-25deg) scale(0.8);
+        transform: translateX(100vw) scale(0.9);
       }
-      button.btn-left {
-        left: 10px;
-      }
-      button.btn-right {
-        right: 10px;
+      button.btn-left, button.btn-right {
+        display: none;
       }
       .card.center:hover .card-inner {
         transform: none;
       }
+    }
+
+    @media (max-width: 480px) {
+      header {
+        font-size: clamp(1.2rem, 2.5vw, 1.8rem);
+        padding: 10px;
+      }
+      .card {
+        width: min(80vw, 260px);
+        height: 240px;
+      }
       .card-front img {
-        height: 150px;
+        height: 120px;
+      }
+      .card h2 {
+        font-size: 1.3rem;
+      }
+      .card p {
+        font-size: 0.9rem;
       }
     }
   </style>
@@ -280,50 +294,50 @@
     <div class="header-title">HistoClick</div>
   </header>
 
-  <div class="carousel">
-    <button class="btn btn-left" aria-label="Anterior"><</button>
+  <div class="carousel" id="carousel">
+    <button class="btn btn-left" aria-label="Anterior">&lt;</button>
     <div class="cards" id="cards">
-      <div class="card card-1 center" data-url="independencia.html">
+      <div class="card card-1 center" data-url="independencia.html" role="button" aria-label="Independencia de México">
         <div class="card-inner">
           <div class="card-front">
             <h2>Independencia de México</h2>
-            <img src="imagenes/independencia.jpg"/>
-            <audio src="audios/independencia.mp3" class="audio-front"></audio>
+            <img src="imagenes/independencia.jpg" alt="Imagen de la Independencia de México" loading="lazy"/>
+            <audio src="audios/independencia.mp3" class="audio-front" preload="none"></audio>
           </div>
           <div class="card-back">
             <p>La Independencia de México (1810-1821) comenzó con el Grito de Dolores de Miguel Hidalgo y terminó con la entrada del Ejército Trigarante en 1821, logrando la libertad del dominio español.</p>
-            <audio src="audios/independenciar1.mp3" class="audio-back"></audio>
+            <audio src="audios/independenciar1.mp3" class="audio-back" preload="none"></audio>
           </div>
         </div>
       </div>
-      <div class="card right" data-url="">
+      <div class="card right" data-url="" role="button" aria-label="Revolución Mexicana">
         <div class="card-inner">
           <div class="card-front">
             <h2>Revolución Mexicana</h2>
-            <img src="imagenes/revolucion.jpg"/>
-            <audio src="audios/tema2.mp3" class="audio-front"></audio>
+            <img src="imagenes/revolucion.jpg" alt="Imagen de la Revolución Mexicana" loading="lazy"/>
+            <audio src="audios/tema2.mp3" class="audio-front" preload="none"></audio>
           </div>
           <div class="card-back">
             <p>La Revolución Mexicana (1910-1920) fue un conflicto armado que buscó terminar con la dictadura de Porfirio Díaz, lograr la justicia social, la reforma agraria y la democracia.</p>
-            <audio src="audios/tema2.mp3" class="audio-back"></audio>
+            <audio src="audios/tema2.mp3" class="audio-back" preload="none"></audio>
           </div>
         </div>
       </div>
-      <div class="card right" data-url="">
+      <div class="card right" data-url="" role="button" aria-label="Contenido en desarrollo">
         <div class="card-inner">
           <div class="card-front">
             <h2>Investigando...</h2>
-            <img src="imagenes/candado.jpg"/>
-            <audio src="audios/tema2.mp3" class="audio-front"></audio>
+            <img src="imagenes/candado.jpg" alt="Contenido en desarrollo" loading="lazy"/>
+            <audio src="audios/tema2.mp3" class="audio-front" preload="none"></audio>
           </div>
           <div class="card-back">
             <p>Contenido en desarrollo, ¡pronto estará disponible!</p>
-            <audio src="audios/tema2.mp3" class="audio-back"></audio>
+            <audio src="audios/tema2.mp3" class="audio-back" preload="none"></audio>
           </div>
         </div>
       </div>
     </div>
-    <button class="btn btn-right" aria-label="Siguiente">></button>
+    <button class="btn btn-right" aria-label="Siguiente">&gt;</button>
   </div>
 
   <script>
@@ -331,9 +345,14 @@
       const cards = [...document.querySelectorAll('.card')];
       const btnLeft = document.querySelector('.btn-left');
       const btnRight = document.querySelector('.btn-right');
+      const carousel = document.querySelector('#carousel');
       let current = 0;
       let currentAudio = null;
       let isFlipped = false;
+      let touchStartX = 0;
+      let touchEndX = 0;
+      let isTouching = false;
+      let isFlipping = false; // Bloqueo para evitar volteos múltiples
 
       function pauseAllAudios() {
         cards.forEach(card => {
@@ -387,6 +406,8 @@
             cardInner.removeEventListener('mouseover', handleMouseOver);
             cardInner.removeEventListener('mouseout', handleMouseOut);
             cardInner.removeEventListener('click', handleClick);
+            cardInner.removeEventListener('touchstart', handleTouchStart);
+            cardInner.removeEventListener('touchend', handleTouchEnd);
           }
         });
 
@@ -395,24 +416,30 @@
           const cardInner = centerCard.querySelector('.card-inner');
           if (cardInner) {
             function handleMouseOver(e) {
-              if (!centerCard.classList.contains('center')) return;
-              if (!isFlipped && e.target.closest('.card-inner') === cardInner) {
+              if (!centerCard.classList.contains('center') || isFlipping) return;
+              if (!isFlipped) {
+                isFlipping = true;
                 isFlipped = true;
+                cardInner.style.transform = 'rotateY(180deg)';
                 playAudioForCenterCard();
+                setTimeout(() => { isFlipping = false; }, 300); // Sincronizado con CSS
               }
             }
 
             function handleMouseOut(e) {
-              if (!centerCard.classList.contains('center')) return;
+              if (!centerCard.classList.contains('center') || isFlipping) return;
               if (isFlipped && (!e.relatedTarget || !cardInner.contains(e.relatedTarget))) {
+                isFlipping = true;
                 isFlipped = false;
+                cardInner.style.transform = 'rotateY(0deg)';
                 playAudioForCenterCard();
+                setTimeout(() => { isFlipping = false; }, 300);
               }
             }
 
             function handleClick(e) {
-              if (!centerCard.classList.contains('center')) return;
-              if (isFlipped && e.target.closest('.card-inner') === cardInner) {
+              if (!centerCard.classList.contains('center') || isFlipping) return;
+              if (isFlipped) {
                 const url = centerCard.getAttribute('data-url');
                 if (url) {
                   console.log(`Intentando redirigir a: ${url}`);
@@ -423,9 +450,37 @@
               }
             }
 
+            function handleTouchStart(e) {
+              if (!centerCard.classList.contains('center')) return;
+              isTouching = true;
+            }
+
+            function handleTouchEnd(e) {
+              if (!centerCard.classList.contains('center') || !isTouching || isFlipping) return;
+              e.preventDefault();
+              isTouching = false;
+              isFlipping = true;
+              if (!isFlipped) {
+                isFlipped = true;
+                cardInner.style.transform = 'rotateY(180deg)';
+                playAudioForCenterCard();
+              } else {
+                const url = centerCard.getAttribute('data-url');
+                if (url) {
+                  console.log(`Intentando redirigir a: ${url}`);
+                  window.location.href = url;
+                } else {
+                  console.log("URL no definida para esta tarjeta");
+                }
+              }
+              setTimeout(() => { isFlipping = false; }, 300); // Sincronizado con CSS
+            }
+
             cardInner.addEventListener('mouseover', handleMouseOver);
             cardInner.addEventListener('mouseout', handleMouseOut);
             cardInner.addEventListener('click', handleClick);
+            cardInner.addEventListener('touchstart', handleTouchStart);
+            cardInner.addEventListener('touchend', handleTouchEnd);
           }
         }
       }
@@ -434,11 +489,21 @@
         const total = cards.length;
         cards.forEach((card, i) => {
           card.classList.remove('left', 'center', 'right', 'hidden');
+          const cardInner = card.querySelector('.card-inner');
           let pos = (i - current + total) % total;
-          if (pos === 0) card.classList.add('center');
-          else if (pos === 1) card.classList.add('right');
-          else if (pos === total - 1) card.classList.add('left');
-          else card.classList.add('hidden');
+          if (pos === 0) {
+            card.classList.add('center');
+            cardInner.style.transform = isFlipped ? 'rotateY(180deg)' : 'rotateY(0deg)';
+          } else if (pos === 1) {
+            card.classList.add('right');
+            cardInner.style.transform = 'rotateY(0deg)';
+          } else if (pos === total - 1) {
+            card.classList.add('left');
+            cardInner.style.transform = 'rotateY(0deg)';
+          } else {
+            card.classList.add('hidden');
+            cardInner.style.transform = 'rotateY(0deg)';
+          }
         });
         isFlipped = false;
         pauseAllAudios();
@@ -458,6 +523,26 @@
       btnRight.addEventListener('click', () => {
         current = (current + 1) % cards.length;
         updatePositionsWithAudio();
+      });
+
+      // Soporte para deslizar en móviles
+      carousel.addEventListener('touchstart', e => {
+        touchStartX = e.changedTouches[0].screenX;
+        isTouching = true;
+      });
+
+      carousel.addEventListener('touchend', e => {
+        if (!isTouching) return;
+        touchEndX = e.changedTouches[0].screenX;
+        const swipeDistance = touchEndX - touchStartX;
+        isTouching = false;
+        if (swipeDistance > 50) {
+          current = (current - 1 + cards.length) % cards.length;
+          updatePositionsWithAudio();
+        } else if (swipeDistance < -50) {
+          current = (current + 1) % cards.length;
+          updatePositionsWithAudio();
+        }
       });
 
       // Intento de reproducción tras cualquier interacción
