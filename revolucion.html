@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Revolución Mexicana - Ménu</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="t10.css" />
+</head>
+<body>
+
+  <header>
+  <button class="back-button" onclick="history.back()" aria-label="Regresar">⟵</button>
+  <div class="header-title">Revolución Mexicana</div>
+</header>
+
+  <nav>
+    <a href="revolucion-causas.html" class="flip-card" style="animation-delay: 0.1s" data-audio="audios2/causas.mp3">
+      <div class="flip-card-inner">
+        <div class="flip-card-front">Causas de la Revolución Mexicana</div>
+        <div class="flip-card-back"><img src="imagenes2/causas.jpg" /></div>
+      </div>
+    </a>
+
+    <a href="revolucion-inicio.html" class="flip-card" style="animation-delay: 0.2s" data-audio="audios2/inicio.mp3">
+      <div class="flip-card-inner">
+        <div class="flip-card-front">Inicio de la Revolución</div>
+        <div class="flip-card-back"><img src="imagenes2/inicio.jpg" /></div>
+      </div>
+    </a>
+
+    <a href="revolucion-golpe.html" class="flip-card" style="animation-delay: 0.3s" data-audio="audios2/golpe.mp3">
+      <div class="flip-card-inner">
+        <div class="flip-card-front">Golpe de Estado de Victoriano Huerta</div>
+        <div class="flip-card-back"><img src="imagenes2/golpe.jpg" /></div>
+      </div>
+    </a>
+
+    <a href="revolucion-lucha.html" class="flip-card" style="animation-delay: 0.4s" data-audio="audios2/lucha.mp3">
+      <div class="flip-card-inner">
+        <div class="flip-card-front">Lucha contra el régimen de Huerta</div>
+        <div class="flip-card-back"><img src="imagenes2/lucha.jpg" /></div>
+      </div>
+    </a>
+
+    <a href="revolucion-division.html" class="flip-card" style="animation-delay: 0.5s" data-audio="audios2/division.mp3">
+      <div class="flip-card-inner">
+        <div class="flip-card-front">División entre revolucionarios</div>
+        <div class="flip-card-back"><img src="imagenes2/division.jpg" /></div>
+      </div>
+    </a>
+
+    <a href="revolucion-constitucion.html" class="flip-card" style="animation-delay: 0.6s" data-audio="audios2/constitucion.mp3">
+      <div class="flip-card-inner">
+        <div class="flip-card-front">Constitución de 1917</div>
+        <div class="flip-card-back"><img src="imagenes2/constitucion.jpg" /></div>
+      </div>
+    </a>
+
+    <a href="revolucion-personajes.html" class="flip-card" style="animation-delay: 0.7s" data-audio="audios2/personajes.mp3">
+      <div class="flip-card-inner">
+        <div class="flip-card-front">Personajes clave de la Revolución</div>
+        <div class="flip-card-back"><img src="imagenes2/personajes.jpg" /></div>
+      </div>
+    </a>
+
+    <a href="revolucion-mujeres.html" class="flip-card" style="animation-delay: 0.8s" data-audio="audios2/mujeres.mp3">
+      <div class="flip-card-inner">
+        <div class="flip-card-front">Papel de las mujeres en la Revolución</div>
+        <div class="flip-card-back"><img src="imagenes2/mujeres.jpg" /></div>
+      </div>
+    </a>
+
+    <a href="revolucion-consecuencias.html" class="flip-card" style="animation-delay: 0.9s" data-audio="audios2/consecuencias.mp3">
+      <div class="flip-card-inner">
+        <div class="flip-card-front">Consecuencias de la Revolución Mexicana</div>
+        <div class="flip-card-back"><img src="imagenes2/consecuencias.jpg" /></div>
+      </div>
+    </a>
+
+    <a href="revolucion-fin.html" class="flip-card" style="animation-delay: 1s" data-audio="audios2/fin.mp3">
+      <div class="flip-card-inner">
+        <div class="flip-card-front">El fin de la Revolución</div>
+        <div class="flip-card-back"><img src="imagenes2/fin.jpg" /></div>
+      </div>
+    </a>
+  </nav>
+
+  <script>
+  const flipCards = document.querySelectorAll('.flip-card');
+
+  flipCards.forEach(card => {
+    let audio = new Audio(card.dataset.audio);
+
+    card.addEventListener('mouseenter', () => {
+      audio.currentTime = 0; // Reinicia desde el principio
+      audio.play();
+    });
+
+    card.addEventListener('mouseleave', () => {
+      audio.pause();
+      audio.currentTime = 0; // Opcional: reinicia el audio
+    });
+  });
+</script>
+
+</body>
+</html>

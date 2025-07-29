@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Lucha - Revolución Mexicana</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="t5.css" />
+</head>
+<body>
+
+  <header>
+    <button class="back-button" onclick="history.back()" aria-label="Regresar">⟵</button>
+  <div class="header-title">Lucha contra el régimen de Huerta</div>
+  </header>
+
+  <nav>
+    <a href="lucha-plan.html" class="flip-card" style="animation-delay: 0.1s;" data-audio="audios2/plan.mp3">
+      <div class="flip-card-inner">
+        <div class="flip-card-front">Plan de Guadalupe</div>
+        <div class="flip-card-back"><img src="imagenes2/plan.jpg" /></div>
+      </div>
+    </a>
+
+    <a href="lucha-avance.html" class="flip-card" style="animation-delay: 0.2s;" data-audio="audios2/avance.mp3">
+      <div class="flip-card-inner">
+        <div class="flip-card-front">Avance del Ejército Constitucio - nalista</div>
+        <div class="flip-card-back"><img src="imagenes2/avance.jpg" /></div>
+      </div>
+    </a>
+
+    <a href="lucha-norte.html" class="flip-card" style="animation-delay: 0.3s;" data-audio="audios2/norte.mp3">
+      <div class="flip-card-inner">
+        <div class="flip-card-front">Pancho Villa y su fuerza en el norte</div>
+        <div class="flip-card-back"><img src="imagenes2/norte.jpg" /></div>
+      </div>
+    </a>
+
+    <a href="lucha-sur.html" class="flip-card" style="animation-delay: 0.4s;" data-audio="audios2/sur.mp3">
+      <div class="flip-card-inner">
+        <div class="flip-card-front">Emiliano Zapata y el Plan de Ayala en el sur</div>
+        <div class="flip-card-back"><img src="imagenes2/sur.jpg" /></div>
+      </div>
+    </a>
+
+    <a href="lucha-renuncia.html" class="flip-card" style="animation-delay: 0.5s;" data-audio="audios2/renuncia.mp3">
+      <div class="flip-card-inner">
+        <div class="flip-card-front">Renuncia de Huerta en 1914</div>
+        <div class="flip-card-back"><img src="imagenes2/renuncia.jpg" /></div>
+      </div>
+    </a>
+  </nav>
+
+  <script>
+  const flipCards = document.querySelectorAll('.flip-card');
+
+  flipCards.forEach(card => {
+    let audio = new Audio(card.dataset.audio);
+
+    card.addEventListener('mouseenter', () => {
+      audio.currentTime = 0; // Reinicia desde el principio
+      audio.play();
+    });
+
+    card.addEventListener('mouseleave', () => {
+      audio.pause();
+      audio.currentTime = 0; // Opcional: reinicia el audio
+    });
+  });
+</script>
+
+</body>
+</html>

@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Inicio - Revolución Mexicana</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="t5.css" />
+</head>
+<body>
+
+  <header>
+    <button class="back-button" onclick="history.back()" aria-label="Regresar">⟵</button>
+  <div class="header-title">Inicio de la Revolución</div>
+  </header>
+
+  <nav>
+    <a href="inicio-san_luis.html" class="flip-card" style="animation-delay: 0.1s;" data-audio="audios2/san_luis.mp3">
+      <div class="flip-card-inner">
+        <div class="flip-card-front">Plan de San Luis (1910)</div>
+        <div class="flip-card-back"><img src="imagenes2/san_luis.jpg" /></div>
+      </div>
+    </a>
+
+    <a href="inicio-derrocamiento.html" class="flip-card" style="animation-delay: 0.2s;" data-audio="audios2/derrocamiento.mp3">
+      <div class="flip-card-inner">
+        <div class="flip-card-front">Derrocamiento de Porfirio Díaz</div>
+        <div class="flip-card-back"><img src="imagenes2/derrocamiento.jpg" /></div>
+      </div>
+    </a>
+
+    <a href="inicio-gobierno.html" class="flip-card" style="animation-delay: 0.3s;" data-audio="audios2/gobierno.mp3">
+      <div class="flip-card-inner">
+        <div class="flip-card-front">Gobierno de Madero (1911–1913)</div>
+        <div class="flip-card-back"><img src="imagenes2/gobierno.jpg" /></div>
+      </div>
+    </a>
+
+    <a href="inicio-oposicion.html" class="flip-card" style="animation-delay: 0.4s;" data-audio="audios2/oposicion.mp3">
+      <div class="flip-card-inner">
+        <div class="flip-card-front">Oposición conservadora y revolucionaria</div>
+        <div class="flip-card-back"><img src="imagenes2/oposicion.jpg" /></div>
+      </div>
+    </a>
+
+    <a href="inicio-asesinato.html" class="flip-card" style="animation-delay: 0.5s;" data-audio="audios2/asesinato.mp3">
+      <div class="flip-card-inner">
+        <div class="flip-card-front">Asesinato de Madero</div>
+        <div class="flip-card-back"><img src="imagenes2/asesinato.jpg" /></div>
+      </div>
+    </a>
+  </nav>
+
+  <script>
+  const flipCards = document.querySelectorAll('.flip-card');
+
+  flipCards.forEach(card => {
+    let audio = new Audio(card.dataset.audio);
+
+    card.addEventListener('mouseenter', () => {
+      audio.currentTime = 0; // Reinicia desde el principio
+      audio.play();
+    });
+
+    card.addEventListener('mouseleave', () => {
+      audio.pause();
+      audio.currentTime = 0; // Opcional: reinicia el audio
+    });
+  });
+</script>
+
+</body>
+</html>

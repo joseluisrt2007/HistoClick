@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Causas - Revolución Mexicana</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="t5.css" />
+</head>
+<body>
+
+  <header>
+    <button class="back-button" onclick="history.back()" aria-label="Regresar">⟵</button>
+  <div class="header-title">Causas de la Revolución Mexicana</div>
+  </header>
+
+  <nav>
+    <a href="causas-desigualdad.html" class="flip-card" style="animation-delay: 0.1s;" data-audio="audios2/desigualdad.mp3">
+      <div class="flip-card-inner">
+        <div class="flip-card-front">Desigualdad social y económica</div>
+        <div class="flip-card-back"><img src="imagenes2/desigualdad.jpg" /></div>
+      </div>
+    </a>
+
+    <a href="causas-reeleccion.html" class="flip-card" style="animation-delay: 0.2s;" data-audio="audios2/reeleccion.mp3">
+      <div class="flip-card-inner">
+        <div class="flip-card-front">Falta de democracia y reelección perpetua</div>
+        <div class="flip-card-back"><img src="imagenes2/reeleccion.jpg" /></div>
+      </div>
+    </a>
+
+    <a href="causas-explotacion.html" class="flip-card" style="animation-delay: 0.3s;" data-audio="audios2/explotacion.mp3">
+      <div class="flip-card-inner">
+        <div class="flip-card-front">Explotación laboral en haciendas y fábricas</div>
+        <div class="flip-card-back"><img src="imagenes2/explotacion.jpg" /></div>
+      </div>
+    </a>
+
+    <a href="causas-represion.html" class="flip-card" style="animation-delay: 0.4s;" data-audio="audios2/represion.mp3">
+      <div class="flip-card-inner">
+        <div class="flip-card-front">Represión de movimientos obreros</div>
+        <div class="flip-card-back"><img src="imagenes2/represion.jpg" /></div>
+      </div>
+    </a>
+
+    <a href="causas-concentracion.html" class="flip-card" style="animation-delay: 0.5s;" data-audio="audios2/concentracion.mp3">
+      <div class="flip-card-inner">
+        <div class="flip-card-front">Concentración de tierras en pocas manos</div>
+        <div class="flip-card-back"><img src="imagenes2/concentracion.jpg" /></div>
+      </div>
+    </a>
+  </nav>
+
+  <script>
+  const flipCards = document.querySelectorAll('.flip-card');
+
+  flipCards.forEach(card => {
+    let audio = new Audio(card.dataset.audio);
+
+    card.addEventListener('mouseenter', () => {
+      audio.currentTime = 0; // Reinicia desde el principio
+      audio.play();
+    });
+
+    card.addEventListener('mouseleave', () => {
+      audio.pause();
+      audio.currentTime = 0; // Opcional: reinicia el audio
+    });
+  });
+</script>
+
+</body>
+</html>

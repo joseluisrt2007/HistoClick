@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Division - Revolución Mexicana</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="t5.css" />
+</head>
+<body>
+
+  <header>
+    <button class="back-button" onclick="history.back()" aria-label="Regresar">⟵</button>
+  <div class="header-title">División entre revolucionarios </div>
+  </header>
+
+  <nav>
+    <a href="division-ruptura.html" class="flip-card" style="animation-delay: 0.1s;" data-audio="audios2/ruptura.mp3">
+      <div class="flip-card-inner">
+        <div class="flip-card-front">Ruptura entre Carranza y Villa-Zapata</div>
+        <div class="flip-card-back"><img src="imagenes2/ruptura.jpg" /></div>
+      </div>
+    </a>
+
+    <a href="division-convencion.html" class="flip-card" style="animation-delay: 0.2s;" data-audio="audios2/convencion.mp3">
+      <div class="flip-card-inner">
+        <div class="flip-card-front">Convención de Aguascalientes</div>
+        <div class="flip-card-back"><img src="imagenes2/convencion.jpg" /></div>
+      </div>
+    </a>
+
+    <a href="division-guerra.html" class="flip-card" style="animation-delay: 0.3s;" data-audio="audios2/guerra.mp3">
+      <div class="flip-card-inner">
+        <div class="flip-card-front">Guerra civil entre facciones</div>
+        <div class="flip-card-back"><img src="imagenes2/guerra.jpg" /></div>
+      </div>
+    </a>
+
+    <a href="division-asesinato_derrota.html" class="flip-card" style="animation-delay: 0.4s;" data-audio="audios2/asesinato_derrota.mp3">
+      <div class="flip-card-inner">
+        <div class="flip-card-front">Asesinato de Zapata y derrota de Villa</div>
+        <div class="flip-card-back"><img src="imagenes2/asesinato_derrota.jpg" /></div>
+      </div>
+    </a>
+
+    <a href="division-consolidacion.html" class="flip-card" style="animation-delay: 0.5s;" data-audio="audios2/consolidacion.mp3">
+      <div class="flip-card-inner">
+        <div class="flip-card-front">Consolidación de Carranza</div>
+        <div class="flip-card-back"><img src="imagenes2/consolidacion.jpg" /></div>
+      </div>
+    </a>
+  </nav>
+
+  <script>
+  const flipCards = document.querySelectorAll('.flip-card');
+
+  flipCards.forEach(card => {
+    let audio = new Audio(card.dataset.audio);
+
+    card.addEventListener('mouseenter', () => {
+      audio.currentTime = 0; // Reinicia desde el principio
+      audio.play();
+    });
+
+    card.addEventListener('mouseleave', () => {
+      audio.pause();
+      audio.currentTime = 0; // Opcional: reinicia el audio
+    });
+  });
+</script>
+
+</body>
+</html>

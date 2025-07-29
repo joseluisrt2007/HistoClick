@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Constitucion - Revolución Mexicana</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="t5.css" />
+</head>
+<body>
+
+  <header>
+    <button class="back-button" onclick="history.back()" aria-label="Regresar">⟵</button>
+  <div class="header-title">Constitución de 1917 </div>
+  </header>
+
+  <nav>
+    <a href="constitucion-articulo3.html" class="flip-card" style="animation-delay: 0.1s;" data-audio="audios2/articulo3.mp3">
+      <div class="flip-card-inner">
+        <div class="flip-card-front">Artículo 3</div>
+        <div class="flip-card-back"><img src="imagenes2/articulo3.jpg" /></div>
+      </div>
+    </a>
+
+    <a href="constitucion-articulo27.html" class="flip-card" style="animation-delay: 0.2s;" data-audio="audios2/articulo27.mp3">
+      <div class="flip-card-inner">
+        <div class="flip-card-front">Artículo 27</div>
+        <div class="flip-card-back"><img src="imagenes2/articulo27.jpg" /></div>
+      </div>
+    </a>
+
+    <a href="constitucion-articulo123.html" class="flip-card" style="animation-delay: 0.3s;" data-audio="audios2/articulo123.mp3">
+      <div class="flip-card-inner">
+        <div class="flip-card-front">Artículo 123</div>
+        <div class="flip-card-back"><img src="imagenes2/articulo123.jpg" /></div>
+      </div>
+    </a>
+
+    <a href="constitucion-derechos.html" class="flip-card" style="animation-delay: 0.4s;" data-audio="audios2/derechos.mp3">
+      <div class="flip-card-inner">
+        <div class="flip-card-front">Avance en derechos sociales</div>
+        <div class="flip-card-back"><img src="imagenes2/derechos.jpg" /></div>
+      </div>
+    </a>
+
+    <a href="constitucion-diferencias.html" class="flip-card" style="animation-delay: 0.5s;" data-audio="audios2/diferencias.mp3">
+      <div class="flip-card-inner">
+        <div class="flip-card-front">Diferencias con la Constitución de 1857</div>
+        <div class="flip-card-back"><img src="imagenes2/diferencias.jpg" /></div>
+      </div>
+    </a>
+  </nav>
+
+  <script>
+  const flipCards = document.querySelectorAll('.flip-card');
+
+  flipCards.forEach(card => {
+    let audio = new Audio(card.dataset.audio);
+
+    card.addEventListener('mouseenter', () => {
+      audio.currentTime = 0; // Reinicia desde el principio
+      audio.play();
+    });
+
+    card.addEventListener('mouseleave', () => {
+      audio.pause();
+      audio.currentTime = 0; // Opcional: reinicia el audio
+    });
+  });
+</script>
+
+</body>
+</html>

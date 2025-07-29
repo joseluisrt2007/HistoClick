@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Personajes - Revolución Mexicana</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="t10.css" />
+</head>
+<body>
+
+  <header>
+  <button class="back-button" onclick="history.back()" aria-label="Regresar">⟵</button>
+  <div class="header-title">Personajes clave de la Revolución</div>
+</header>
+
+  <nav>
+    <a href="personajes-madero.html" class="flip-card" style="animation-delay: 0.1s" data-audio="audios2/madero.mp3">
+      <div class="flip-card-inner">
+        <div class="flip-card-front">Francisco I. Madero</div>
+        <div class="flip-card-back"><img src="imagenes2/madero.jpg" /></div>
+      </div>
+    </a>
+
+    <a href="personajes-zapata.html" class="flip-card" style="animation-delay: 0.2s" data-audio="audios2/zapata.mp3">
+      <div class="flip-card-inner">
+        <div class="flip-card-front">Emiliano Zapata</div>
+        <div class="flip-card-back"><img src="imagenes2/zapata.jpg" /></div>
+      </div>
+    </a>
+
+    <a href="personajes-villa.html" class="flip-card" style="animation-delay: 0.3s" data-audio="audios2/villa.mp3">
+      <div class="flip-card-inner">
+        <div class="flip-card-front">Pancho Villa</div>
+        <div class="flip-card-back"><img src="imagenes2/villa.jpg" /></div>
+      </div>
+    </a>
+
+    <a href="personajes-carranza.html" class="flip-card" style="animation-delay: 0.4s" data-audio="audios2/carranza.mp3">
+      <div class="flip-card-inner">
+        <div class="flip-card-front">Venustiano Carranza</div>
+        <div class="flip-card-back"><img src="imagenes2/carranza.jpg" /></div>
+      </div>
+    </a>
+
+    <a href="personajes-obregon.html" class="flip-card" style="animation-delay: 0.5s" data-audio="audios2/obregon.mp3">
+      <div class="flip-card-inner">
+        <div class="flip-card-front">Álvaro Obregón</div>
+        <div class="flip-card-back"><img src="imagenes2/obregon.jpg" /></div>
+      </div>
+    </a>
+
+    <a href="personajes-huerta.html" class="flip-card" style="animation-delay: 0.6s" data-audio="audios2/huerta.mp3">
+      <div class="flip-card-inner">
+        <div class="flip-card-front">Victoriano Huerta</div>
+        <div class="flip-card-back"><img src="imagenes2/huerta.jpg" /></div>
+      </div>
+    </a>
+
+    <a href="personajes-magon.html" class="flip-card" style="animation-delay: 0.7s" data-audio="audios2/magon.mp3">
+      <div class="flip-card-inner">
+        <div class="flip-card-front">Ricardo Flores Magón</div>
+        <div class="flip-card-back"><img src="imagenes2/magon.jpg" /></div>
+      </div>
+    </a>
+
+    <a href="personajes-angeles.html" class="flip-card" style="animation-delay: 0.8s" data-audio="audios2/angeles.mp3">
+      <div class="flip-card-inner">
+        <div class="flip-card-front">Felipe Ángeles</div>
+        <div class="flip-card-back"><img src="imagenes2/angeles.jpg" /></div>
+      </div>
+    </a>
+
+    <a href="personajes-orozco.html" class="flip-card" style="animation-delay: 0.9s" data-audio="audios2/orozco.mp3">
+      <div class="flip-card-inner">
+        <div class="flip-card-front">Pascual Orozco</div>
+        <div class="flip-card-back"><img src="imagenes2/orozco.jpg" /></div>
+      </div>
+    </a>
+
+    <a href="personajes-galindo.html" class="flip-card" style="animation-delay: 1s" data-audio="audios2/galindo.mp3">
+      <div class="flip-card-inner">
+        <div class="flip-card-front">Hermila Galindo</div>
+        <div class="flip-card-back"><img src="imagenes2/galindo.jpg" /></div>
+      </div>
+    </a>
+  </nav>
+
+  <script>
+  const flipCards = document.querySelectorAll('.flip-card');
+
+  flipCards.forEach(card => {
+    let audio = new Audio(card.dataset.audio);
+
+    card.addEventListener('mouseenter', () => {
+      audio.currentTime = 0; // Reinicia desde el principio
+      audio.play();
+    });
+
+    card.addEventListener('mouseleave', () => {
+      audio.pause();
+      audio.currentTime = 0; // Opcional: reinicia el audio
+    });
+  });
+</script>
+
+</body>
+</html>

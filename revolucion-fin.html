@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Fin - Revolución Mexicana</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="t5.css" />
+</head>
+<body>
+
+  <header>
+    <button class="back-button" onclick="history.back()" aria-label="Regresar">⟵</button>
+  <div class="header-title">El fin de la Revolución</div>
+  </header>
+
+  <nav>
+    <a href="fin-politicos.html" class="flip-card" style="animation-delay: 0.1s;" data-audio="audios2/politicos.mp3">
+      <div class="flip-card-inner">
+        <div class="flip-card-front">Asesinatos políticos</div>
+        <div class="flip-card-back"><img src="imagenes2/politicos.jpg" /></div>
+      </div>
+    </a>
+
+    <a href="fin-ascenso.html" class="flip-card" style="animation-delay: 0.2s;" data-audio="audios2/ascenso.mp3">
+      <div class="flip-card-inner">
+        <div class="flip-card-front">El Maximato</div>
+        <div class="flip-card-back"><img src="imagenes2/ascenso.jpg" /></div>
+      </div>
+    </a>
+
+    <a href="fin-pri.html" class="flip-card" style="animation-delay: 0.3s;" data-audio="audios2/pri.mp3">
+      <div class="flip-card-inner">
+        <div class="flip-card-front">Fundación del PRI y hegemonía política</div>
+        <div class="flip-card-back"><img src="imagenes2/pri.jpg" /></div>
+      </div>
+    </a>
+
+    <a href="fin-estado.html" class="flip-card" style="animation-delay: 0.4s;" data-audio="audios2/estado.mp3">
+      <div class="flip-card-inner">
+        <div class="flip-card-front">Estado moderno mexicano</div>
+        <div class="flip-card-back"><img src="imagenes2/estado.jpg" /></div>
+      </div>
+    </a>
+
+    <a href="fin-reformas.html" class="flip-card" style="animation-delay: 0.5s;" data-audio="audios2/reformas.mp3">
+      <div class="flip-card-inner">
+        <div class="flip-card-front">Reformas estructurales en el siglo XX</div>
+        <div class="flip-card-back"><img src="imagenes2/reformas.jpg" /></div>
+      </div>
+    </a>
+  </nav>
+
+  <script>
+  const flipCards = document.querySelectorAll('.flip-card');
+
+  flipCards.forEach(card => {
+    let audio = new Audio(card.dataset.audio);
+
+    card.addEventListener('mouseenter', () => {
+      audio.currentTime = 0; // Reinicia desde el principio
+      audio.play();
+    });
+
+    card.addEventListener('mouseleave', () => {
+      audio.pause();
+      audio.currentTime = 0; // Opcional: reinicia el audio
+    });
+  });
+</script>
+
+</body>
+</html>

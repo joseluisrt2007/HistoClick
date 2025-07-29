@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Consecuencias - Revolución Mexicana</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="t5.css" />
+</head>
+<body>
+
+  <header>
+    <button class="back-button" onclick="history.back()" aria-label="Regresar">⟵</button>
+  <div class="header-title">Consecuencias de la Revolución Mexicana</div>
+  </header>
+
+  <nav>
+    <a href="consecuencias-cambios.html" class="flip-card" style="animation-delay: 0.1s;" data-audio="audios2/cambios.mp3">
+      <div class="flip-card-inner">
+        <div class="flip-card-front">Cambios en la estructura agraria</div>
+        <div class="flip-card-back"><img src="imagenes2/cambios.jpg" /></div>
+      </div>
+    </a>
+
+    <a href="consecuencias-caudillismo.html" class="flip-card" style="animation-delay: 0.2s;" data-audio="audios2/caudillismo.mp3">
+      <div class="flip-card-inner">
+        <div class="flip-card-front">Fin del caudillismo</div>
+        <div class="flip-card-back"><img src="imagenes2/caudillismo.jpg" /></div>
+      </div>
+    </a>
+
+    <a href="consecuencias-pnr.html" class="flip-card" style="animation-delay: 0.3s;" data-audio="audios2/pnr.mp3">
+      <div class="flip-card-inner">
+        <div class="flip-card-front">Fundación del PNR</div>
+        <div class="flip-card-back"><img src="imagenes2/pnr.jpg" /></div>
+      </div>
+    </a>
+
+    <a href="consecuencias-sociales.html" class="flip-card" style="animation-delay: 0.4s;" data-audio="audios2/sociales.mp3">
+      <div class="flip-card-inner">
+        <div class="flip-card-front">Cambios sociales</div>
+        <div class="flip-card-back"><img src="imagenes2/sociales.jpg" /></div>
+      </div>
+    </a>
+
+    <a href="consecuencias-muralismo.html" class="flip-card" style="animation-delay: 0.5s;" data-audio="audios2/muralismo.mp3">
+      <div class="flip-card-inner">
+        <div class="flip-card-front">Impacto cultural y en el arte mexicano</div>
+        <div class="flip-card-back"><img src="imagenes2/muralismo.jpg" /></div>
+      </div>
+    </a>
+  </nav>
+
+  <script>
+  const flipCards = document.querySelectorAll('.flip-card');
+
+  flipCards.forEach(card => {
+    let audio = new Audio(card.dataset.audio);
+
+    card.addEventListener('mouseenter', () => {
+      audio.currentTime = 0; // Reinicia desde el principio
+      audio.play();
+    });
+
+    card.addEventListener('mouseleave', () => {
+      audio.pause();
+      audio.currentTime = 0; // Opcional: reinicia el audio
+    });
+  });
+</script>
+
+</body>
+</html>

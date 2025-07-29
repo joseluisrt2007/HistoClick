@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Golpe - Revolución Mexicana</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="t4.css" />
+</head>
+<body>
+
+  <header>
+    <button class="back-button" onclick="history.back()" aria-label="Regresar">⟵</button>
+  <div class="header-title">Golpe de Estado de Victoriano Huerta</div>
+  </header>
+
+  <nav>
+    <a href="golpe-traicion.html" class="flip-card" style="animation-delay: 0.1s;" data-audio="audio2/traicion.mp3">
+      <div class="flip-card-inner">
+        <div class="flip-card-front">Traición a Madero y Pino Suárez</div>
+        <div class="flip-card-back"><img src="imagenes2/traicion.jpg" /></div>
+      </div>
+    </a>
+
+    <a href="golpe-apoyo.html" class="flip-card" style="animation-delay: 0.2s;" data-audio="audio2/apoyo.mp3">
+      <div class="flip-card-inner">
+        <div class="flip-card-front">Apoyo militar y extranjero a Huerta</div>
+        <div class="flip-card-back"><img src="imagenes2/apoyo.jpg" /></div>
+      </div>
+    </a>
+
+    <a href="golpe-reaccion.html" class="flip-card" style="animation-delay: 0.3s;" data-audio="audio2/reaccion.mp3">
+      <div class="flip-card-inner">
+        <div class="flip-card-front">Reacción revolucionaria contra Huerta</div>
+        <div class="flip-card-back"><img src="imagenes2/reaccion.jpg" /></div>
+      </div>
+    </a>
+
+    <a href="golpe-militar.html" class="flip-card" style="animation-delay: 0.4s;" data-audio="audio2/militar.mp3">
+      <div class="flip-card-inner">
+        <div class="flip-card-front">Consolidación del poder militar</div>
+        <div class="flip-card-back"><img src="imagenes2/militar.jpg" /></div>
+      </div>
+    </a>
+  </nav>
+
+  <script>
+  const flipCards = document.querySelectorAll('.flip-card');
+
+  flipCards.forEach(card => {
+    let audio = new Audio(card.dataset.audio);
+
+    card.addEventListener('mouseenter', () => {
+      audio.currentTime = 0; // Reinicia desde el principio
+      audio.play();
+    });
+
+    card.addEventListener('mouseleave', () => {
+      audio.pause();
+      audio.currentTime = 0; // Opcional: reinicia el audio
+    });
+  });
+</script>
+
+</body>
+</html>

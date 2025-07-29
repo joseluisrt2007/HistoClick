@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Desigualdad-Causas</title>
+
+  <!-- Fuente Poppins -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@700&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="carrucel.css" />
+</head>
+<body>
+
+
+<header>
+  <button class="back-button" onclick="history.back()" aria-label="Regresar">⟵</button>
+  <div class="header-title">Desigualdad social y económica</div>
+</header>
+
+<div class="carousel">
+  <button class="btn btn-left" aria-label="Anterior">&lt;</button>
+  <div class="cards" id="cards">
+    <div class="card"><img class="full" src="imagenes2/desigualdad.jpg" /><audio src="audios2/desigualdad.mp3"></audio></div>
+
+    <div class="card">
+  <h2>Concentración de la riqueza</h2>
+  <p>Durante el Porfiriato, la riqueza se concentró en una élite que controlaba grandes extensiones de tierra y recursos económicos, mientras la mayoría de la población vivía en condiciones de pobreza extrema, sin acceso a servicios básicos ni oportunidades de desarrollo.</p>
+  <audio src="audios2/desigualdad-a1.mp3"></audio>
+</div>
+
+<div class="card">
+  <h2>Desigualdad rural y urbana</h2>
+  <p>Las zonas rurales mostraban pobreza generalizada, con campesinos trabajando en condiciones precarias, mientras las ciudades crecían gracias a la inversión extranjera, lo que generaba una brecha social y económica entre ambos sectores que aumentó el descontento social.</p>
+  <audio src="audios2/desigualdad-a2.mp3"></audio>
+</div>
+
+<div class="card">
+  <h2>Exclusión social</h2>
+  <p>Los grupos indígenas y campesinos fueron marginados sistemáticamente, sin acceso a educación ni servicios médicos, enfrentando discriminación y falta de representación política, lo que perpetuó su situación de desventaja y pobreza.</p>
+  <audio src="audios2/desigualdad-a3.mp3"></audio>
+</div>
+
+<div class="card">
+  <h2>Monopolio de tierras</h2>
+  <p>Grandes hacendados acapararon la mayoría de las tierras productivas, dejando a campesinos sin acceso a la propiedad ni a recursos suficientes para subsistir, lo que provocó conflictos sociales y demandas de reforma agraria.</p>
+  <audio src="audios2/desigualdad-a4.mp3"></audio>
+</div>
+
+<div class="card">
+  <h2>Condiciones laborales precarias</h2>
+  <p>La clase trabajadora sufría jornadas excesivas, bajos salarios y ausencia de derechos laborales, lo que generó malestar y organización obrera que buscaba mejores condiciones y justicia social frente a la explotación de patrones y empresarios.</p>
+  <audio src="audios2/desigualdad-a5.mp3"></audio>
+</div>
+
+<div class="card">
+  <h2>Impacto de la inversión extranjera</h2>
+  <p>La inversión extranjera benefició principalmente a la élite local y a empresas extranjeras, sin que la mayoría de la población viera mejoras significativas en su calidad de vida, aumentando la desigualdad y la dependencia económica.</p>
+  <audio src="audios2/desigualdad-a6.mp3"></audio>
+</div>
+
+<div class="card">
+  <h2>Educación limitada</h2>
+  <p>El acceso a la educación estaba restringido a las clases altas, mientras que la mayoría de la población carecía de oportunidades para formarse, lo que mantenía la desigualdad social y dificultaba la movilidad económica y cultural.</p>
+  <audio src="audios2/desigualdad-a7.mp3"></audio>
+</div>
+
+<div class="card">
+  <h2>Falta de representación política</h2>
+  <p>Los sectores populares tenían poca o ninguna participación en la política, ya que el sistema estaba controlado por la élite, impidiendo que sus demandas fueran escuchadas y aumentando el resentimiento hacia el régimen porfirista.</p>
+  <audio src="audios2/desigualdad-a8.mp3"></audio>
+</div>
+
+<div class="card">
+  <h2>Base para el conflicto social</h2>
+  <p>La acumulación de desigualdades económicas y sociales creó un clima de tensión y descontento que alimentó las causas de la Revolución Mexicana, pues amplios sectores buscaban justicia, igualdad y mejores condiciones de vida.</p>
+  <audio src="audios2/desigualdad-a9.mp3"></audio>
+</div>
+
+  </div>
+  <button class="btn btn-right" aria-label="Siguiente">&gt;</button>
+</div>
+
+<script>
+  const cards = [...document.querySelectorAll('.card')];
+  const btnLeft = document.querySelector('.btn-left');
+  const btnRight = document.querySelector('.btn-right');
+  let current = 0;
+  let currentAudio = null;
+
+  function updatePositions() {
+    const total = cards.length;
+    cards.forEach((card, i) => {
+      card.classList.remove('left', 'center', 'right', 'hidden');
+      let pos = (i - current + total) % total;
+      if (pos === 0) {
+        card.classList.add('center');
+      } else if (pos === 1) {
+        card.classList.add('right');
+      } else if (pos === total - 1) {
+        card.classList.add('left');
+      } else {
+        card.classList.add('hidden');
+      }
+    });
+  }
+
+  function playAudioForCenterCard() {
+    if (currentAudio) {
+      currentAudio.pause();
+      currentAudio.currentTime = 0;
+    }
+
+    const centerCard = document.querySelector('.card.center');
+    const audio = centerCard.querySelector('audio');
+    if (audio) {
+      currentAudio = audio;
+      audio.play().catch(e => console.log("Reproducción bloqueada hasta que el usuario interactúe"));
+    }
+  }
+
+  function updatePositionsWithAudio() {
+    updatePositions();
+    playAudioForCenterCard();
+  }
+
+  btnLeft.addEventListener('click', () => {
+    current = (current - 1 + cards.length) % cards.length;
+    updatePositionsWithAudio();
+  });
+
+  btnRight.addEventListener('click', () => {
+    current = (current + 1) % cards.length;
+    updatePositionsWithAudio();
+  });
+
+  updatePositionsWithAudio(); // inicializa la primera tarjeta con audio
+
+  let startX = 0;
+let endX = 0;
+
+const carousel = document.querySelector('.carousel');
+
+carousel.addEventListener('touchstart', (e) => {
+  startX = e.touches[0].clientX;
+}, false);
+
+carousel.addEventListener('touchend', (e) => {
+  endX = e.changedTouches[0].clientX;
+  handleGesture();
+}, false);
+
+function handleGesture() {
+  const diffX = endX - startX;
+
+  if (Math.abs(diffX) > 50) { // umbral mínimo para que cuente como deslizamiento
+    if (diffX > 0) {
+      // swipe hacia la derecha (anterior)
+      current = (current - 1 + cards.length) % cards.length;
+    } else {
+      // swipe hacia la izquierda (siguiente)
+      current = (current + 1) % cards.length;
+    }
+    updatePositionsWithAudio();
+  }
+}
+</script>
+
+</body>
+</html>
