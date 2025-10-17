@@ -11,134 +11,127 @@
   <link rel="stylesheet" href="carrucel.css" />
 </head>
 <body>
+  <header>
+    <button class="back-button" onclick="goBack()" aria-label="Regresar">⟵</button>
+    <div class="header-title">El virreinato de la Nueva España</div>
+    <button class="game-button" onclick="window.location.href='juego-virreinato.html'" aria-label="Jugar Exploradores del Virreinato">🎮</button>
+  </header>
 
-
-<header>
-  <button class="back-button" onclick="history.back()" aria-label="Regresar">⟵</button>
-  <div class="header-title">El virreinato de la Nueva España</div>
-</header>
-
-<div class="carousel">
-  <button class="btn btn-left" aria-label="Anterior">&lt;</button>
-  <div class="cards" id="cards">
-    <div class="card"><img class="full" src="imagenes/virreinato.jpg" /><audio src="audios/virreinato.mp3"></audio></div>
-
-    <div class="card"><h2>Fundación y establecimiento</h2>
-      <p>El Virreinato de la Nueva España fue creado en 1535 tras la conquista de Tenochtitlan, para administrar los vastos territorios coloniales que España poseía en América del Norte y partes de Asia.</p><audio src="audios/virreinato-a1.mp3"></audio></div>
-
-    <div class="card"><h2>Gobierno virreinal</h2>
-      <p>El virrey, representante directo del rey de España, tenía amplios poderes para gobernar, administrar justicia y defender el territorio frente a amenazas internas y externas.</p><audio src="audios/virreinato-a2.mp3"></audio></div>
-
-    <div class="card"><h2>Economía basada en la minería y agricultura</h2>
-      <p>La principal fuente de riqueza fue la minería de plata, especialmente en regiones como Zacatecas y Guanajuato, complementada por la agricultura que abastecía a la población local y exportaba productos.</p><audio src="audios/virreinato-a3.mp3"></audio></div>
-
-    <div class="card"><h2>Sistema de encomiendas y trabajo indígena</h2>
-      <p>Mediante las encomiendas, los españoles recibían el derecho a recibir tributo y trabajo indígena, lo que originó abusos y explotación pero también un complejo sistema social.</p><audio src="audios/virreinato-a4.mp3"></audio></div>
-
-    <div class="card"><h2>Religión y evangelización</h2>
-      <p>Los misioneros, principalmente franciscanos, dominicos y jesuitas, jugaron un papel vital en convertir a los pueblos indígenas al catolicismo, fundando escuelas, hospitales y misiones.</p><audio src="audios/virreinato-a5.mp3"></audio></div>
-
-    <div class="card"><h2>Sociedad jerárquica y mestizaje</h2>
-      <p>La sociedad se dividió en castas, con españoles peninsulares en la cima, criollos (españoles nacidos en América), mestizos y otros grupos, generando una mezcla cultural y racial única.</p><audio src="audios/virreinato-a6.mp3"></audio></div>
-
-    <div class="card"><h2>Importancia de la ciudad de México-Tenochtitlan</h2>
-      <p>Ciudad de México, construida sobre las ruinas de Tenochtitlan, fue la capital política y económica, con importantes edificios como el Palacio Virreinal y la Catedral Metropolitana.</p><audio src="audios/virreinato-a7.mp3"></audio></div>
-
-    <div class="card"><h2>Red de comercio y puertos</h2>
-      <p>La Nueva España fue un punto clave en la ruta comercial entre España, América y Asia, con puertos como Veracruz y Acapulco, que facilitaban la llegada de productos, personas e ideas.
-    </p><audio src="audios/virreinato-a8.mp3"></audio></div>
-
-    <div class="card"><h2>Impacto cultural y científico</h2>
-      <p>Se desarrollaron importantes instituciones educativas y culturales, como la Universidad de México, y se fomentó la ciencia y el arte, dejando un legado valioso en la historia colonial.</p><audio src="audios/virreinato-a9.mp3"></audio></div>
-
+  <div class="carousel">
+    <button class="btn btn-left" aria-label="Anterior">&lt;</button>
+    <div class="cards" id="cards">
+      <div class="card"><img class="full" src="imagenes/virreinato.jpg" /><audio src="audios/virreinato.mp3"></audio></div>
+      <div class="card"><h2>Fundación y establecimiento</h2>
+        <p>El Virreinato de la Nueva España fue creado en 1535 tras la conquista de Tenochtitlan, para administrar los vastos territorios coloniales que España poseía en América del Norte y partes de Asia.</p><audio src="audios/virreinato-a1.mp3"></audio></div>
+      <div class="card"><h2>Gobierno virreinal</h2>
+        <p>El virrey, representante directo del rey de España, tenía amplios poderes para gobernar, administrar justicia y defender el territorio frente a amenazas internas y externas.</p><audio src="audios/virreinato-a2.mp3"></audio></div>
+      <div class="card"><h2>Economía basada en la minería y agricultura</h2>
+        <p>La principal fuente de riqueza fue la minería de plata, especialmente en regiones como Zacatecas y Guanajuato, complementada por la agricultura que abastecía a la población local y exportaba productos.</p><audio src="audios/virreinato-a3.mp3"></audio></div>
+      <div class="card"><h2>Sistema de encomiendas y trabajo indígena</h2>
+        <p>Mediante las encomiendas, los españoles recibían el derecho a recibir tributo y trabajo indígena, lo que originó abusos y explotación pero también un complejo sistema social.</p><audio src="audios/virreinato-a4.mp3"></audio></div>
+      <div class="card"><h2>Religión y evangelización</h2>
+        <p>Los misioneros, principalmente franciscanos, dominicos y jesuitas, jugaron un papel vital en convertir a los pueblos indígenas al catolicismo, fundando escuelas, hospitales y misiones.</p><audio src="audios/virreinato-a5.mp3"></audio></div>
+      <div class="card"><h2>Sociedad jerárquica y mestizaje</h2>
+        <p>La sociedad se dividió en castas, con españoles peninsulares en la cima, criollos (españoles nacidos en América), mestizos y otros grupos, generando una mezcla cultural y racial única.</p><audio src="audios/virreinato-a6.mp3"></audio></div>
+      <div class="card"><h2>Importancia de la ciudad de México-Tenochtitlan</h2>
+        <p>Ciudad de México, construida sobre las ruinas de Tenochtitlan, fue la capital política y económica, con importantes edificios como el Palacio Virreinal y la Catedral Metropolitana.</p><audio src="audios/virreinato-a7.mp3"></audio></div>
+      <div class="card"><h2>Red de comercio y puertos</h2>
+        <p>La Nueva España fue un punto clave en la ruta comercial entre España, América y Asia, con puertos como Veracruz y Acapulco, que facilitaban la llegada de productos, personas e ideas.</p><audio src="audios/virreinato-a8.mp3"></audio></div>
+      <div class="card"><h2>Impacto cultural y científico</h2>
+        <p>Se desarrollaron importantes instituciones educativas y culturales, como la Universidad de México, y se fomentó la ciencia y el arte, dejando un legado valioso en la historia colonial.</p><audio src="audios/virreinato-a9.mp3"></audio></div>
+    </div>
+    <button class="btn btn-right" aria-label="Siguiente">&gt;</button>
   </div>
-  <button class="btn btn-right" aria-label="Siguiente">&gt;</button>
-</div>
 
-<script>
-  const cards = [...document.querySelectorAll('.card')];
-  const btnLeft = document.querySelector('.btn-left');
-  const btnRight = document.querySelector('.btn-right');
-  let current = 0;
-  let currentAudio = null;
+  <script>
+    const cards = [...document.querySelectorAll('.card')];
+    const btnLeft = document.querySelector('.btn-left');
+    const btnRight = document.querySelector('.btn-right');
+    let current = 0;
+    let currentAudio = null;
 
-  function updatePositions() {
-    const total = cards.length;
-    cards.forEach((card, i) => {
-      card.classList.remove('left', 'center', 'right', 'hidden');
-      let pos = (i - current + total) % total;
-      if (pos === 0) {
-        card.classList.add('center');
-      } else if (pos === 1) {
-        card.classList.add('right');
-      } else if (pos === total - 1) {
-        card.classList.add('left');
-      } else {
-        card.classList.add('hidden');
+    function updatePositions() {
+      const total = cards.length;
+      cards.forEach((card, i) => {
+        card.classList.remove('left', 'center', 'right', 'hidden');
+        let pos = (i - current + total) % total;
+        if (pos === 0) {
+          card.classList.add('center');
+        } else if (pos === 1) {
+          card.classList.add('right');
+        } else if (pos === total - 1) {
+          card.classList.add('left');
+        } else {
+          card.classList.add('hidden');
+        }
+      });
+    }
+
+    function playAudioForCenterCard() {
+      if (currentAudio) {
+        currentAudio.pause();
+        currentAudio.currentTime = 0;
       }
-    });
-  }
 
-  function playAudioForCenterCard() {
-    if (currentAudio) {
-      currentAudio.pause();
-      currentAudio.currentTime = 0;
+      const centerCard = document.querySelector('.card.center');
+      const audio = centerCard.querySelector('audio');
+      if (audio) {
+        currentAudio = audio;
+        audio.play().catch(e => console.log("Reproducción bloqueada hasta que el usuario interactúe"));
+      }
     }
 
-    const centerCard = document.querySelector('.card.center');
-    const audio = centerCard.querySelector('audio');
-    if (audio) {
-      currentAudio = audio;
-      audio.play().catch(e => console.log("Reproducción bloqueada hasta que el usuario interactúe"));
+    function updatePositionsWithAudio() {
+      updatePositions();
+      playAudioForCenterCard();
     }
-  }
 
-  function updatePositionsWithAudio() {
-    updatePositions();
-    playAudioForCenterCard();
-  }
-
-  btnLeft.addEventListener('click', () => {
-    current = (current - 1 + cards.length) % cards.length;
-    updatePositionsWithAudio();
-  });
-
-  btnRight.addEventListener('click', () => {
-    current = (current + 1) % cards.length;
-    updatePositionsWithAudio();
-  });
-
-  updatePositionsWithAudio(); // inicializa la primera tarjeta con audio
-
-  let startX = 0;
-let endX = 0;
-
-const carousel = document.querySelector('.carousel');
-
-carousel.addEventListener('touchstart', (e) => {
-  startX = e.touches[0].clientX;
-}, false);
-
-carousel.addEventListener('touchend', (e) => {
-  endX = e.changedTouches[0].clientX;
-  handleGesture();
-}, false);
-
-function handleGesture() {
-  const diffX = endX - startX;
-
-  if (Math.abs(diffX) > 50) { // umbral mínimo para que cuente como deslizamiento
-    if (diffX > 0) {
-      // swipe hacia la derecha (anterior)
+    btnLeft.addEventListener('click', () => {
       current = (current - 1 + cards.length) % cards.length;
-    } else {
-      // swipe hacia la izquierda (siguiente)
-      current = (current + 1) % cards.length;
-    }
-    updatePositionsWithAudio();
-  }
-}
-</script>
+      updatePositionsWithAudio();
+    });
 
+    btnRight.addEventListener('click', () => {
+      current = (current + 1) % cards.length;
+      updatePositionsWithAudio();
+    });
+
+    updatePositionsWithAudio();
+
+    let startX = 0;
+    let endX = 0;
+
+    const carousel = document.querySelector('.carousel');
+
+    carousel.addEventListener('touchstart', (e) => {
+      startX = e.touches[0].clientX;
+    }, false);
+
+    carousel.addEventListener('touchend', (e) => {
+      endX = e.changedTouches[0].clientX;
+      handleGesture();
+    }, false);
+
+    function handleGesture() {
+      const diffX = endX - startX;
+      if (Math.abs(diffX) > 50) {
+        if (diffX > 0) {
+          current = (current - 1 + cards.length) % cards.length;
+        } else {
+          current = (current + 1) % cards.length;
+        }
+        updatePositionsWithAudio();
+      }
+    }
+
+    // Función para manejar el regreso
+    function goBack() {
+      if (window.history.length > 1) {
+        history.back();
+      } else {
+        window.location.href = 'index.html'; // Página por defecto si no hay historial
+      }
+    }
+  </script>
 </body>
 </html>

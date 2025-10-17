@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Tus Reales</title>
+
+  <!-- Fuentes -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@700&family=Cinzel:wght@400;700&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="juego-estilo.css" />
+</head>
+<body>
+  <header>
+    <button class="back-button" onclick="goBack()" aria-label="Regresar">⟵</button>
+    <div class="header-title">Tus Reales</div>
+  </header>
+
+  <div class="map-container">
+    <div class="card active">
+      <div class="question-container">
+        <h1>Tus Reales Acumulados</h1>
+        <p id="real-count">Cargando...</p>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Recuperar el contador de Reales desde localStorage
+    let realCount = parseInt(localStorage.getItem('realCount') || '0');
+    document.getElementById('real-count').textContent = `${realCount} Reales`;
+
+    // Función para manejar el regreso
+    function goBack() {
+      if (window.history.length > 1) {
+        history.back();
+      } else {
+        window.location.href = 'juego-virreinato.html'; // Página por defecto si no hay historial
+      }
+    }
+  </script>
+</body>
+</html>

@@ -264,3 +264,41 @@ button:active {
     right: 10px;
   }
 }
+.game-button {
+      position: absolute;
+      right: 30px;
+      top: 50%;
+      transform: translateY(-50%);
+      background: linear-gradient(90deg, #5a4de8, #8366f1);
+      border: none;
+      color: #f0e9ff;
+      font-size: 4.4rem;
+      font-family: 'Poppins', sans-serif;
+      font-weight: 700;
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      cursor: pointer;
+      box-shadow: 0 0 12px rgba(127, 90, 255, 0.4);
+      transition: background 0.3s ease, transform 0.3s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      line-height: 1;
+    }
+    .game-button:hover {
+      background: linear-gradient(90deg, #8366f1, #5a4de8);
+      transform: translateY(-50%) scale(1.1);
+    }
+    .game-button:active {
+      background: #4b3cc0;
+      transform: translateY(-50%) scale(0.95);
+    }
+    @media (max-width: 700px) {
+      .game-button {
+        font-size: 3.6rem;
+        width: 80px;
+        height: 80px;
+        right: 25px;
+      }
+    }
