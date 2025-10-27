@@ -4,11 +4,12 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Tus Reales</title>
-
+  
   <!-- Fuentes -->
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@700&family=Cinzel:wght@400;700&display=swap" rel="stylesheet" />
-
-  <link rel="stylesheet" href="juego-estilo.css" />
+  
+  <!-- CSS individual -->
+  <link rel="stylesheet" href="reales.css" />
 </head>
 <body>
   <header>
@@ -16,28 +17,208 @@
     <div class="header-title">Tus Reales</div>
   </header>
 
-  <div class="map-container">
-    <div class="card active">
-      <div class="question-container">
-        <h1>Tus Reales Acumulados</h1>
-        <p id="real-count">Cargando...</p>
+  <div class="map-container fullscreen">
+    <div class="card fullscreen-card active">
+      <div class="question-container fullscreen-container">
+        <!-- Contador Principal -->
+        <div class="real-count-container">
+          <h1>Tus Reales Acumulados</h1>
+          <p id="real-count">Cargando...</p>
+        </div>
+
+        <!-- Barra de Progreso -->
+        <div class="progress-container" id="progress-container">
+          <div class="progress-label" id="next-badge">Siguiente: ¡Primer Real!</div>
+          <div class="progress-bar">
+            <div class="progress-fill" id="progress-fill"></div>
+          </div>
+        </div>
+
+        <!-- Sección de Insignias -->
+        <div class="badges-section">
+          <h2 class="badges-title">Insignias del Virreinato</h2>
+          <div class="badges-grid" id="badges-container">
+            <!-- Insignias generadas por JavaScript -->
+          </div>
+        </div>
       </div>
     </div>
   </div>
 
   <script>
-    // Recuperar el contador de Reales desde localStorage
+    // Sistema de insignias
+    const BADGES = [
+      { id: 1, name: 'Benito Juárez', image: 'imagenes/i1.png', required: 1, desc: 'Defensor del Estado laico, la soberanía y las Leyes de Reforma.' },
+      { id: 2, name: 'Miguel Hidalgo y Costilla', image: 'imagenes/i2.png', required: 100, desc: 'Iniciador de la Independencia; Padre de la Patria.' },
+      { id: 3, name: 'José María Morelos y Pavón', image: 'imagenes/i3.png', required: 200, desc: 'Estratega insurgente; autor de Los Sentimientos de la Nación.' },
+      { id: 4, name: 'Lázaro Cárdenas del Río', image: 'imagenes/i4.png', required: 300, desc: 'Nacionalizó el petróleo y transformó la justicia social mexicana.' },
+      { id: 5, name: 'Emiliano Zapata', image: 'imagenes/i5.png', required: 400, desc: 'Líder campesino del sur; símbolo de la lucha por “Tierra y Libertad”.' },
+      { id: 6, name: 'Pancho Villa', image: 'imagenes/i6.png', required: 500, desc: 'Revolucionario del norte; figura legendaria del pueblo en armas.' },
+      { id: 7, name: 'Cuauhtémoc', image: 'imagenes/i7.png', required: 600, desc: 'Último tlatoani mexica; símbolo de resistencia indígena.' },
+      { id: 8, name: 'Sor Juana Inés de la Cruz', image: 'imagenes/i8.png', required: 700, desc: 'Escritora y pensadora; precursora del feminismo y genio literario.' },
+      { id: 9, name: 'Francisco I. Madero', image: 'imagenes/i9.png', required: 800, desc: 'Líder democrático; inició la Revolución Mexicana.' },
+      { id: 10, name: 'Vicente Guerrero', image: 'imagenes/i10.png', required: 900, desc: 'Héroe insurgente y presidente que abolió la esclavitud.' },
+      { id: 11, name: 'Porfirio Díaz', image: 'imagenes/i11.png', required: 1000, desc: 'Modernizador y dictador; figura clave del siglo XIX.' },
+      { id: 12, name: 'Nezahualcóyotl', image: 'imagenes/i12.png', required: 1100, desc: 'Rey poeta de Texcoco; símbolo de sabiduría y arte prehispánico.' },
+      { id: 13, name: 'José Vasconcelos', image: 'imagenes/i13.png', required: 1200, desc: 'Filósofo y político; impulsor de la educación pública y la identidad nacional.' },
+      { id: 14, name: 'Agustín de Iturbide', image: 'imagenes/i14.png', required: 1300, desc: 'Consumó la Independencia y fue el primer emperador mexicano.' },
+      { id: 15, name: 'Ignacio Zaragoza', image: 'imagenes/i15.png', required: 1400, desc: 'Vencedor de la Batalla de Puebla (5 de mayo de 1862).' },
+      { id: 16, name: 'Plutarco Elías Calles', image: 'imagenes/i16.png', required: 1500, desc: 'Fundador del PNR (antecedente del PRI); base del sistema político moderno.' },
+      { id: 17, name: 'Melchor Ocampo', image: 'imagenes/i17.png', required: 1600, desc: 'Liberal e ideólogo del Estado laico.' },
+      { id: 18, name: 'Leona Vicario', image: 'imagenes/i18.png', required: 1700, desc: 'Heroína de la Independencia; pionera en la participación femenina.' },
+      { id: 19, name: 'Diego Rivera', image: 'imagenes/i19.png', required: 1800, desc: 'Muralista mundialmente reconocido; plasmó la historia mexicana en su arte.' },
+      { id: 20, name: 'José Clemente Orozco', image: 'imagenes/i20.png', required: 1900, desc: 'Muralista; expresó la tragedia y el espíritu del pueblo mexicano.' },
+      { id: 21, name: 'Frida Kahlo', image: 'imagenes/i21.png', required: 2000, desc: 'Pintora universal; ícono de identidad, arte y resistencia.' },
+      { id: 22, name: 'Venustiano Carranza', image: 'imagenes/i22.png', required: 2100, desc: 'Promulgó la Constitución de 1917.' },
+      { id: 23, name: 'Ignacio Allende', image: 'imagenes/i23.png', required: 2200, desc: 'Militar insurgente; colaborador principal de Hidalgo.' },
+      { id: 24, name: 'David Alfaro Siqueiros', image: 'imagenes/i24.png', required: 2300, desc: 'Muralista y activista político; innovador en el arte social.' },
+      { id: 25, name: 'Guadalupe Victoria', image: 'imagenes/i25.png', required: 2400, desc: 'Primer presidente de México; consolidó la independencia.' },
+      { id: 26, name: 'Mario Molina', image: 'imagenes/i26.png', required: 2500, desc: 'Premio Nobel de Química; descubrió el daño de los CFC en la capa de ozono.' },
+      { id: 27, name: 'Octavio Paz', image: 'imagenes/i27.png', required: 2600, desc: 'Premio Nobel de Literatura; uno de los más grandes intelectuales del siglo XX.' },
+      { id: 28, name: 'Joséfa Ortiz de Domínguez', image: 'imagenes/i28.png', required: 2700, desc: 'Heroína de la Independencia; avisó del descubrimiento de la conspiración.' },
+      { id: 29, name: 'Felipe Ángeles', image: 'imagenes/i29.png', required: 2800, desc: 'General revolucionario; ejemplo de ética y estrategia militar.' },
+      { id: 30, name: 'Manuel Ávila Camacho', image: 'imagenes/i30.png', required: 2900, desc: 'Presidente durante la Segunda Guerra Mundial; promovió la unidad nacional.' },
+      { id: 31, name: 'Elena Poniatowska', image: 'imagenes/i31.png', required: 3000, desc: 'Escritora y periodista; defensora de los derechos humanos y la verdad histórica.' },
+      { id: 32, name: 'Rosario Castellanos', image: 'imagenes/i32.png', required: 3100, desc: 'Escritora y diplomática; voz del feminismo y las culturas indígenas.' },
+      { id: 33, name: 'Ignacio Ramírez “El Nigromante”', image: 'imagenes/i33.png', required: 3200, desc: 'Liberal y escritor; defensor de la educación y la libertad de pensamiento.' },
+      { id: 34, name: 'Vicente Riva Palacio', image: 'imagenes/i34.png', required: 3300, desc: 'Militar, político e historiador; defensor de la República y la cultura.' },
+      { id: 35, name: 'Moctezuma Xocoyotzin', image: 'imagenes/i35.png', required: 3400, desc: 'Gobernante mexica durante la llegada de los españoles; figura clave del fin del imperio.' }
+    ];
+
+    // Recuperar datos desde localStorage
     let realCount = parseInt(localStorage.getItem('realCount') || '0');
-    document.getElementById('real-count').textContent = `${realCount} Reales`;
+    let unlockedBadges = JSON.parse(localStorage.getItem('unlockedBadges') || '[]');
+
+    // Inicializar y validar localStorage
+    function initializeStorage() {
+      try {
+        // Validar unlockedBadges
+        unlockedBadges = unlockedBadges.filter(id => {
+          const badge = BADGES.find(b => b.id === id);
+          return badge && realCount >= badge.required;
+        });
+        localStorage.setItem('unlockedBadges', JSON.stringify(unlockedBadges));
+        
+        // Validar realCount
+        if (isNaN(realCount) || realCount < 0) {
+          realCount = 0;
+          localStorage.setItem('realCount', '0');
+        }
+      } catch (error) {
+        console.error('Error al inicializar localStorage:', error);
+        localStorage.setItem('unlockedBadges', '[]');
+        localStorage.setItem('realCount', '0');
+        realCount = 0;
+        unlockedBadges = [];
+      }
+    }
+
+    // Actualizar contador principal
+    document.getElementById('real-count').textContent = `${realCount.toLocaleString()} Reales`;
+
+    // Verificar y desbloquear insignias
+    function checkBadges() {
+      let newUnlocked = false;
+      // Validar y limpiar unlockedBadges
+      unlockedBadges = unlockedBadges.filter(id => {
+        const badge = BADGES.find(b => b.id === id);
+        return badge && realCount >= badge.required;
+      });
+      // Verificar nuevas insignias
+      BADGES.forEach(badge => {
+        if (realCount >= badge.required && !unlockedBadges.includes(badge.id)) {
+          unlockedBadges.push(badge.id);
+          newUnlocked = true;
+          showNotification(`¡Nueva insignia! ${badge.name}`);
+        }
+      });
+      if (newUnlocked) {
+        localStorage.setItem('unlockedBadges', JSON.stringify(unlockedBadges));
+      }
+      renderBadges();
+      updateProgress();
+    }
+
+    // Renderizar insignias CON IMÁGENES
+    function renderBadges() {
+      const container = document.getElementById('badges-container');
+      try {
+        container.innerHTML = BADGES.map(badge => {
+          const isUnlocked = unlockedBadges.includes(badge.id) && realCount >= badge.required;
+          const isNew = isUnlocked && !localStorage.getItem(`seen-${badge.id}`);
+          return `
+            <div class="badge ${isUnlocked ? 'unlocked' : 'locked'} ${isNew ? 'new' : ''}" 
+                 role="button" 
+                 tabindex="0" 
+                 onclick="showBadgeDetail(${badge.id})" 
+                 onkeypress="if(event.key === 'Enter') showBadgeDetail(${badge.id})"
+                 title="${badge.desc}"
+                 aria-label="${isUnlocked ? 'Insignia desbloqueada' : 'Insignia bloqueada'}: ${badge.name}">
+              <img src="${badge.image}" alt="Insignia ${badge.name}" class="badge-image" 
+                   onerror="this.src='img/badge-placeholder.png'; this.alt='Imagen no disponible'">
+              <div class="badge-name">${badge.name}</div>
+            </div>
+          `;
+        }).join('');
+      } catch (error) {
+        console.error('Error al renderizar insignias:', error);
+        container.innerHTML = '<p>Error al cargar las insignias. Por favor, intenta de nuevo.</p>';
+      }
+    }
+
+    // Actualizar barra de progreso
+    function updateProgress() {
+      const nextBadge = BADGES.find(badge => !unlockedBadges.includes(badge.id));
+      const progressEl = document.getElementById('progress-fill');
+      const labelEl = document.getElementById('next-badge');
+      
+      if (nextBadge) {
+        const progress = Math.min((realCount / nextBadge.required) * 100, 100);
+        progressEl.style.width = `${progress}%`;
+        labelEl.textContent = `Siguiente: ${nextBadge.name} (${nextBadge.required.toLocaleString()})`;
+      } else {
+        labelEl.textContent = '¡Insignias completadas! 🎉';
+        progressEl.style.width = '100%';
+      }
+    }
+
+    // Mostrar detalle de insignia
+    function showBadgeDetail(badgeId) {
+      const badge = BADGES.find(b => b.id === badgeId);
+      if (unlockedBadges.includes(badgeId) && realCount >= badge.required) {
+        localStorage.setItem(`seen-${badgeId}`, 'true');
+        renderBadges(); // Quitar animación "nueva"
+        
+        const message = `🏆 ${badge.name}\n\n${badge.desc}\n\nReales requeridos: ${badge.required.toLocaleString()}\n¡Felicidades!`;
+        alert(message);
+      }
+    }
+
+    // Notificación de nuevo desbloqueo
+    function showNotification(message) {
+      const notification = document.createElement('div');
+      notification.className = 'notification';
+      notification.textContent = message;
+      document.body.appendChild(notification);
+      
+      setTimeout(() => {
+        notification.style.animation = 'slideOutRight 0.5s ease-out forwards';
+        setTimeout(() => notification.remove(), 500);
+      }, 4000);
+    }
 
     // Función para manejar el regreso
     function goBack() {
       if (window.history.length > 1) {
         history.back();
       } else {
-        window.location.href = 'juego-virreinato.html'; // Página por defecto si no hay historial
+        window.location.href = 'juego-virreinato.html';
       }
     }
+
+    // Inicializar al cargar la página
+    initializeStorage();
+    checkBadges();
   </script>
 </body>
 </html>
