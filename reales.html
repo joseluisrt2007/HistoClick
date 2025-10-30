@@ -92,14 +92,12 @@
     // Inicializar y validar localStorage
     function initializeStorage() {
       try {
-        // Validar unlockedBadges
         unlockedBadges = unlockedBadges.filter(id => {
           const badge = BADGES.find(b => b.id === id);
           return badge && realCount >= badge.required;
         });
         localStorage.setItem('unlockedBadges', JSON.stringify(unlockedBadges));
         
-        // Validar realCount
         if (isNaN(realCount) || realCount < 0) {
           realCount = 0;
           localStorage.setItem('realCount', '0');
@@ -119,12 +117,10 @@
     // Verificar y desbloquear insignias
     function checkBadges() {
       let newUnlocked = false;
-      // Validar y limpiar unlockedBadges
       unlockedBadges = unlockedBadges.filter(id => {
         const badge = BADGES.find(b => b.id === id);
         return badge && realCount >= badge.required;
       });
-      // Verificar nuevas insignias
       BADGES.forEach(badge => {
         if (realCount >= badge.required && !unlockedBadges.includes(badge.id)) {
           unlockedBadges.push(badge.id);
@@ -139,21 +135,37 @@
       updateProgress();
     }
 
-    // Renderizar insignias CON IMÁGENES
+    // Renderizar insignias (con ? para bloqueadas)
     function renderBadges() {
       const container = document.getElementById('badges-container');
       try {
         container.innerHTML = BADGES.map(badge => {
           const isUnlocked = unlockedBadges.includes(badge.id) && realCount >= badge.required;
           const isNew = isUnlocked && !localStorage.getItem(`seen-${badge.id}`);
+
+          if (!isUnlocked) {
+            return `
+              <div class="badge locked" 
+                   role="button" 
+                   tabindex="0"
+                   title="Insignia bloqueada. Acumula más Reales para desbloquearla."
+                   aria-label="Insignia bloqueada">
+                <div class="badge-image locked-image">
+                  <span>?</span>
+                </div>
+                <div class="badge-name">???</div>
+              </div>
+            `;
+          }
+
           return `
-            <div class="badge ${isUnlocked ? 'unlocked' : 'locked'} ${isNew ? 'new' : ''}" 
+            <div class="badge unlocked ${isNew ? 'new' : ''}" 
                  role="button" 
                  tabindex="0" 
                  onclick="showBadgeDetail(${badge.id})" 
                  onkeypress="if(event.key === 'Enter') showBadgeDetail(${badge.id})"
                  title="${badge.desc}"
-                 aria-label="${isUnlocked ? 'Insignia desbloqueada' : 'Insignia bloqueada'}: ${badge.name}">
+                 aria-label="Insignia desbloqueada: ${badge.name}">
               <img src="${badge.image}" alt="Insignia ${badge.name}" class="badge-image" 
                    onerror="this.src='img/badge-placeholder.png'; this.alt='Imagen no disponible'">
               <div class="badge-name">${badge.name}</div>
@@ -182,16 +194,18 @@
       }
     }
 
-    // Mostrar detalle de insignia
+    // Mostrar detalle de insignia (solo si desbloqueada)
     function showBadgeDetail(badgeId) {
       const badge = BADGES.find(b => b.id === badgeId);
-      if (unlockedBadges.includes(badgeId) && realCount >= badge.required) {
-        localStorage.setItem(`seen-${badgeId}`, 'true');
-        renderBadges(); // Quitar animación "nueva"
-        
-        const message = `🏆 ${badge.name}\n\n${badge.desc}\n\nReales requeridos: ${badge.required.toLocaleString()}\n¡Felicidades!`;
-        alert(message);
+      if (!badge || !unlockedBadges.includes(badgeId) || realCount < badge.required) {
+        return;
       }
+
+      localStorage.setItem(`seen-${badgeId}`, 'true');
+      renderBadges();
+
+      const message = `🏆 ${badge.name}\n\n${badge.desc}\n\nReales requeridos: ${badge.required.toLocaleString()}\n¡Felicidades!`;
+      alert(message);
     }
 
     // Notificación de nuevo desbloqueo

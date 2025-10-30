@@ -471,3 +471,68 @@ header {
     font-size: 9px;
   }
 }
+/* ESTILOS PARA INSIGNIAS BLOQUEADAS CON "?" */
+.badge-image.locked-image {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(90, 77, 232, 0.6);
+  border: 2px dashed #d6c4a0;
+  border-radius: 15px;
+  width: 100px;
+  height: 100px;
+  font-family: 'Cinzel', serif;
+  font-size: 48px;
+  font-weight: 700;
+  color: #d6c4a0;
+  text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.5);
+  margin-bottom: 12px;
+  filter: drop-shadow(0 2px 6px rgba(0,0,0,0.6));
+}
+
+.badge.locked {
+  cursor: not-allowed;
+  opacity: 0.75;
+}
+
+.badge.locked:hover::before {
+  opacity: 0; /* Desactiva efecto hover en bloqueadas */
+}
+
+.badge.locked .badge-name {
+  color: #aaa;
+  font-style: italic;
+}
+
+/* Responsive: Ajustar tamaño del "?" */
+@media (max-width: 1280px) {
+  .badge-image.locked-image {
+    width: 90px;
+    height: 90px;
+    font-size: 42px;
+  }
+}
+
+@media (max-width: 900px) {
+  .badge-image.locked-image {
+    width: 80px;
+    height: 80px;
+    font-size: 38px;
+  }
+}
+
+@media (max-width: 700px) {
+  .badge-image.locked-image {
+    width: 70px;
+    height: 70px;
+    font-size: 34px;
+  }
+}
+
+@media (max-width: 400px) {
+  .badge-image.locked-image {
+    width: 60px;
+    height: 60px;
+    font-size: 30px;
+  }
+}
